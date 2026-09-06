@@ -1,63 +1,60 @@
-Jul 13th
-- rename lika to specter in DB ./
-- update goal card functionality ./
+## Jul 13
 
----------------------------------------------
-Jul 14
-- improve goal style ./
-- goal detail ./
-- check step ./
+1. Rename Lika to Specter in DB — ✅
+2. Update goal card functionality — ✅
 
----------------------------------------------
-Jul 19
-1. Improve goal card detail ./    -fd/at 19:07-
-    1.1. Collect completed steps into spoiler button ./
-    1.2. Show step's desc after clicking on it ./
-    1.3. Completion status falls down after opening edit page ./
-    1.4. To truncate titles ./
-2. Add progress bar to each card ./    -fd/at 19:55-
-    2.1. To write up progress bar part on templates. HTML ./
-    2.2. The color of progress bar's fillable must be same as card's color. ./
+---
 
+## Jul 14
 
-# Next time, I'll strive to commit more
-# Sorry!
+3. Improve goal style — ✅
+4. Goal detail — ✅
+5. Check step — ✅
 
----------------------------------------------
-Jul 20
-1. Required true issues. ./    -fd/at 14:32-
-    1.1. Update goal and step models. ./
-    1.2. Delete card in edit page ./
-2. Add more card_colors or just palette. ./    -fd/at 14:53-
-    2.1. Keeping color code in DB. ./
-    2.2. Add palette to Create Update page. ./
-3. Fix time inconsistency bug in schedule and report pages.  ./    -fd/at 18:43-
+---
 
+## Jul 19
 
+6. Improve goal card detail — ✅ `fd/at 19:07`
+   6.1. Collect completed steps into spoiler button — ✅
+   6.2. Show step's description after clicking on it — ✅
+   6.3. Completion status falls down after opening edit page — ✅
+   6.4. Truncate titles — ✅
 
----------------------------------------------
-Sep 6
-1. Another goal card type
-    1.1. Add another goal card type  ./
-    1.2. Design unique "update progress in modal window" form
-    1.3. Improve styles
-    1.4. Create an own goal card
+7. Add progress bar to each card — ✅ `fd/at 19:55`
+   7.1. Write up progress bar part on templates (HTML) — ✅
+   7.2. Make the color of the progress bar's fill the same as the card's color — ✅
 
+> Next time, I'll strive to commit more.
+> Sorry!
 
+---
 
+## Jul 20
 
-TODO
-async and sync code (Telegram Bot)
+8. Fix `required=true` issues — ✅ `fd/at 14:32`
+   8.1. Update goal and step models — ✅
+   8.2. Delete card on the edit page — ✅
 
+9. Add more card colors or just a palette — ✅ `fd/at 14:53`
+   9.1. Keep color code in DB — ✅
+   9.2. Add palette to Create/Update page — ✅
 
+10. Fix time inconsistency bug in schedule and report pages — ✅ `fd/at 18:43`
 
+---
 
+## Sep 6
 
+11. Add another goal card type
+    11.1. Add another goal card type — ✅
+    11.2. Design a unique "Update Progress in Modal Window" form — ✅
+    11.3. Create an own goal card — ✅
 
+---
 
+## TODO
 
-
-TODO:
-Add functions to Specter Bot
-Find free deploy platform
-
+12. Implement async and sync code for Telegram Bot
+13. Add functions to Specter Bot
+14. Find a free deployment platform

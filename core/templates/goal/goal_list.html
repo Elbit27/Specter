@@ -95,7 +95,6 @@
                 </div>
             {% endfor %}
         </div>
-
     </div>
 
     <div id="goal-modal" class="modal-overlay">
@@ -111,16 +110,35 @@
                     <strong>Награда:</strong> <span id="modal-prize"></span>
                 </div>
 
-                <div class="modal-completed-section">
-                    <button type="button" id="modal-toggle-completed-btn" class="btn-toggle-completed">
-                        <span class="toggle-icon">▶</span> Показать завершенные шаги (<span id="modal-completed-count">0</span>)
-                    </button>
-                    <!-- Этот контейнер по умолчанию скрыт через CSS -->
-                    <ul id="modal-steps-completed" class="modal-steps-completed"></ul>
+
+                <div id="modal-steps-block" style="display: none;">
+                    <div class="modal-completed-section">
+                        <button type="button" id="modal-toggle-completed-btn" class="btn-toggle-completed">
+                            <span class="toggle-icon">✓</span> Выполненные задачи (<span id="modal-completed-count">0</span>)
+                        </button>
+                        <ul id="modal-steps-completed" class="modal-steps-completed"></ul>
+                    </div>
+                    <div class="modal-steps-list">
+                        <ul id="modal-steps-uncompleted" class="modal-steps-uncompleted"></ul>
+                    </div>
                 </div>
-                <div class="modal-steps-list">
-                    <ul id="modal-steps-uncompleted" class="modal-steps-uncompleted"></ul>
+
+                <!-- БЛОК ДЛЯ ЧИСЛОВЫХ ЦЕЛЕЙ -->
+                <div id="modal-numeric-block" style="display: none; padding: 15px 0; text-align: center;">
+                    <label for="modal-numeric-input" style="display: block; font-weight: 600; margin-bottom: 12px; font-size: 0.9rem; color: #555;">Текущий прогресс:</label>
+
+                    <div style="max-width: 140px; margin: 0 auto 10px auto; position: relative;">
+                        <input type="number" id="modal-numeric-input" value="0" min="0" style="width: 100%; text-align: center; padding: 10px; border: 2px solid #3498db; border-radius: 8px; font-size: 1.3rem; font-weight: bold; color: #2c3e50; outline: none; box-sizing: border-box;">
+                    </div>
+
+                    <div style="font-size: 0.85rem; color: #888; margin-top: 5px;">
+                        из конечной цели: <span id="modal-numeric-target" style="font-weight: bold; color: #333;">0</span>
+                    </div>
+
+                    <!-- Маленький индикатор статуса сохранения для удобства -->
+                    <div id="numeric-save-status" style="font-size: 0.75rem; color: #95a5a6; margin-top: 8px; min-height: 16px; transition: color 0.2s;"></div>
                 </div>
+
             </div>
             <div class="detail-goal-footer">
                 <div class="goal-actions">

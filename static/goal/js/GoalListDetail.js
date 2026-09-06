@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeStepBtn = document.getElementById('close-step-modal-btn');
     const saveStepDescBtn = document.getElementById('save-step-desc-btn');
 
+    let numericGoalData = { id: null, target: 0 };
     let currentGoalId = null;
 
     function refreshGoalModalData(goalId) {
@@ -122,7 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Открытие главной модалки (goal)
     document.querySelectorAll('.goal-card').forEach(card => {
-        recalculateProgress(card);
+        if (typeof recalculateProgress === 'function' && card.dataset.type !== 'numeric') {
+            recalculateProgress(card);
+        }
+
         card.addEventListener('click', function(e) {
             if (e.target.classList.contains('btn-action-edit') || e.target.closest('.btn-step-action')) {
                 return;
@@ -130,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const goalId = this.dataset.id;
             if (!goalId) return;
-            currentGoalId = goalId; // Сохраняем текущий ID цели
+            currentGoalId = goalId;
 
             fetch(`/goal/api/goals/${goalId}/`)
                 .then(response => response.json())
@@ -147,20 +151,124 @@ document.addEventListener('DOMContentLoaded', () => {
                         prizeWrapper.style.display = 'none';
                     }
 
-                    const toggleBtn = document.getElementById('modal-toggle-completed-btn');
-                    if (toggleBtn) {
-                        toggleBtn.classList.remove('active');
-                        toggleBtn.innerHTML = `<span class="toggle-icon">▶</span> Показать завершенные шаги (<span id="modal-completed-count">0</span>)`;
-                    }
+                    const stepsBlock = document.getElementById('modal-steps-block');
+                    const numericBlock = document.getElementById('modal-numeric-block');
 
-                    // Первичный рендеринг списков шагов
-                    refreshGoalModalData(currentGoalId);
+                    if (goal.goal_type === 'numeric') {
+                        if (stepsBlock) stepsBlock.style.display = 'none';
+                        if (numericBlock) numericBlock.style.display = 'block';
+
+                        const numInput = document.getElementById('modal-numeric-input');
+                        const numTarget = document.getElementById('modal-numeric-target');
+                        if (numInput) numInput.value = goal.current_value;
+                        if (numTarget) numTarget.textContent = goal.target_value;
+
+                        numericGoalData.id = goal.id;
+                        numericGoalData.target = goal.target_value;
+                    } else {
+                        if (numericBlock) numericBlock.style.display = 'none';
+                        if (stepsBlock) stepsBlock.style.display = 'block';
+
+                        const toggleBtn = document.getElementById('modal-toggle-completed-btn');
+                        if (toggleBtn) {
+                            toggleBtn.classList.remove('active');
+                            toggleBtn.innerHTML = `<span class="toggle-icon">✓</span> Выполненные задачи (<span id="modal-completed-count">0</span>)`;
+                        }
+
+                        // Обновляем списки шагов для списочной цели
+                        refreshGoalModalData(currentGoalId);
+                    }
 
                     modal.classList.add('active');
                 })
                 .catch(err => console.error('Ошибка при загрузке данных:', err));
         });
     });
+
+
+    const numInput = document.getElementById('modal-numeric-input');
+    const saveStatus = document.getElementById('numeric-save-status');
+
+    if (numInput) {
+        numInput.addEventListener('change', async () => {
+            const newValue = parseInt(numInput.value) || 0;
+
+            if (saveStatus) {
+                saveStatus.style.color = '#e67e22';
+                saveStatus.textContent = 'Сохранение...';
+            }
+
+            try {
+                const currentGoalResp = await fetch(`/goal/api/goals/${numericGoalData.id}/`);
+                if (!currentGoalResp.ok) throw new Error('Не удалось получить данные');
+
+                const fullGoalData = await currentGoalResp.json();
+
+                // Ограничиваем ввод по таргету (опционально, если нельзя перевыполнять)
+                let finalValue = newValue;
+                if (finalValue < 0) finalValue = 0;
+                if (finalValue > numericGoalData.target) finalValue = numericGoalData.target;
+
+                numInput.value = finalValue;
+
+                fullGoalData.current_value = finalValue;
+
+                // Отправил обновленный пакет обратно на бэкенд через PUT
+                const response = await fetch(`/goal/api/goals/${numericGoalData.id}/`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': typeof CSRF_TOKEN !== 'undefined' ? CSRF_TOKEN : getCookie('csrftoken')
+                    },
+                    body: JSON.stringify(fullGoalData)
+                });
+
+                if (response.ok) {
+                    if (saveStatus) {
+                        saveStatus.style.color = '#2ecc71';
+                        saveStatus.textContent = '✓ Изменения сохранены!';
+                    }
+
+                    const mainCard = document.querySelector(`.goal-card[data-id="${numericGoalData.id}"]`);
+                    if (mainCard) {
+                        // Ищем текстовый счетчик "13 / 20" внутри карточки
+                        const counterDiv = mainCard.querySelector('.goal-steps-section div');
+                        if (counterDiv) {
+                            counterDiv.innerHTML = `${finalValue} <span style="color: #888; font-size: 1rem; font-weight: normal;">/ ${numericGoalData.target}</span>`;
+                        }
+
+                        // Вычисляем новый процент для прогресс-бара
+                        const newPct = Math.round((finalValue / numericGoalData.target) * 100);
+                        const fillBar = mainCard.querySelector('.progress-bar-fill');
+                        const pctText = mainCard.querySelector('.progress-percentage-text');
+
+                        if (fillBar) fillBar.style.width = `${newPct}%`;
+                        if (pctText) pctText.textContent = `${newPct}%`;
+                    }
+
+                } else {
+                    if (saveStatus) {
+                        saveStatus.style.color = '#e74c3c';
+                        saveStatus.textContent = '❌ Ошибка сервера при сохранении';
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка автосохранения:', error);
+                if (saveStatus) {
+                    saveStatus.style.color = '#e74c3c';
+                    saveStatus.textContent = '❌ Ошибка сети';
+                }
+            }
+        });
+    }
+
+    // При закрытии модального окна очищаем текст статуса сохранения
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            if (saveStatus) saveStatus.textContent = '';
+        });
+    }
 
     // ЗАКРЫТИЕ ПЕРВОГО МОДАЛЬНОГО ОКНА
     if (closeBtn) {
