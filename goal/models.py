@@ -1,11 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='goals')
+
+
+    GOAL_TYPE_CHOICES = [
+        ('steps', 'Конкретные шаги'),
+        ('numeric', 'Числовой счетчик'),
+    ]
 
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     card_color = models.CharField(max_length=20, default='pink')
     prize = models.CharField(max_length=100, null=False)
+
+    goal_type = models.CharField(max_length=10, choices=GOAL_TYPE_CHOICES, default='steps')
+    current_value = models.IntegerField(default=0)
+    target_value = models.IntegerField(default=100)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -27,6 +39,7 @@ class Goal(models.Model):
 
 
 class Step(models.Model):
+
     goal = models.ForeignKey('Goal', on_delete=models.CASCADE, related_name='steps')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)

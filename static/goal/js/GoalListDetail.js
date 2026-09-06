@@ -1,25 +1,29 @@
-// Для пересчета прогресса карточки
 function recalculateProgress(card) {
     const progressContainer = card.querySelector('.goal-progress-container');
     if (!progressContainer) return;
+
+    const fill = card.querySelector('.progress-bar-fill');
+    const text = card.querySelector('.progress-percentage-text');
+
+    if (fill && fill.style.width && fill.style.width !== "0%" && !progressContainer.dataset.totalSteps) {
+        return;
+    }
 
     let total = parseInt(progressContainer.dataset.totalSteps) || 0;
     let completed = parseInt(progressContainer.dataset.completedSteps) || 0;
 
     if (total === 0) {
-        card.querySelector('.progress-bar-fill').style.width = '0%';
-        card.querySelector('.progress-percentage-text').textContent = '0%';
+        if (fill) fill.style.width = '0%';
+        if (text) text.textContent = '0%';
         return;
     }
 
     const percentage = Math.round((completed / total) * 100);
 
-    const fill = card.querySelector('.progress-bar-fill');
-    const text = card.querySelector('.progress-percentage-text');
-
     if (fill) fill.style.width = `${percentage}%`;
     if (text) text.textContent = `${percentage}%`;
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('goal-modal');
