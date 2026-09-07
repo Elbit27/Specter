@@ -73,30 +73,62 @@ class ItemCreateView(generic.View):
 @csrf_exempt
 def update_poma(request):
     print(request.POST)
+
     if request.method != "POST":
-        return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)
+        return JsonResponse(
+            {"status": "error", "message": "Invalid method"},
+            status=405
+        )
 
     try:
         item_id = request.POST.get("item_id")
         day_index = int(request.POST.get("day"))
         diff = int(request.POST.get("diff"))
 
-        days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        days = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ]
+
         day = days[day_index]
 
         item = Item.objects.get(id=item_id)
 
         now = timezone.now()
-        start_of_week = now.replace(hour=12, minute=0, second=0, microsecond=0) - timedelta(days=now.weekday())
-        target_date = start_of_week + timedelta(days=day_index)
 
+        start_of_week = (
+            now.replace(
+                hour=0,
+                minute=0,
+                second=0,
+                microsecond=0
+            )
+            - timedelta(days=now.weekday())
+        )
+
+        target_date = start_of_week + timedelta(days=day_index)
 
         if diff > 0:
             for _ in range(diff):
-                Poma.objects.create(item=item, day=day, crawl_date=target_date)
+                Poma.objects.create(
+                    item=item,
+                    day=day,
+                    created_at=target_date
+                )
 
         elif diff < 0:
-            day_start = target_date.replace(hour=0, minute=0, second=0, microsecond=0)
+            day_start = target_date.replace(
+                hour=0,
+                minute=0,
+                second=0,
+                microsecond=0
+            )
+
             day_end = day_start + timedelta(days=1)
 
             for _ in range(abs(diff)):
@@ -104,15 +136,24 @@ def update_poma(request):
                     item=item,
                     day=day,
                     created_at__gte=day_start,
-                    crate_date__lt=day_end).last()
+                    created_at__lt=day_end
+                ).last()
+
                 if last:
                     last.delete()
 
         return JsonResponse({"status": "success"})
 
     except Exception as e:
-        return JsonResponse({"status": "error", "message": str(e)}, status=400)
+        print("UPDATE POMA ERROR:", e)
 
+        return JsonResponse(
+            {
+                "status": "error",
+                "message": str(e)
+            },
+            status=400
+        )
 
 class ItemListView(generics.ListAPIView):
     queryset = Item.objects.all()
