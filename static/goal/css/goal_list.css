@@ -1,67 +1,3 @@
-.list-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.list-header h1 {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin: 0;
-}
-
-.btn-add-goal {
-    background-color: var(--secondary-color);
-    color: white;
-    text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 0.95rem;
-    transition: transform 0.2s, opacity 0.2s;
-}
-
-.btn-add-goal:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.goals-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 25px;
-    align-items: start;
-}
-
-.goal-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.goal-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.goal-body {
-    padding: 20px;
-}
 
 .goal-badge {
     display: inline-block;
@@ -388,178 +324,6 @@
 }
 
 
-/* Задний фон модального окна (затемнение и размытие) */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-/* Класс для отображения окна */
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Само белое окно */
-.modal-window {
-    background: #ffffff;
-    width: 90%;
-    max-width: 550px;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transform: translateY(-20px);
-    transition: transform 0.2s ease;
-}
-
-.modal-overlay.active .modal-window {
-    transform: translateY(0);
-}
-
-/* Шапка окна */
-.modal-header {
-    background: #f8f9fa;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-}
-
-.modal-header h2 {
-    margin: 0;
-    font-size: 1.3rem;
-    color: #333;
-}
-
-/* Кнопка закрытия (крестик) */
-.modal-close-btn {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-    color: #999;
-    transition: color 0.2s;
-}
-
-.modal-close-btn:hover {
-    color: #333;
-}
-
-/* Содержимое окна */
-.modal-body {
-    padding: 10px;
-    max-height: 70vh;
-    overflow-y: auto;
-}
-
-.modal-goal-desc {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.modal-prize-box {
-    background: #fff9db;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border-left: 4px solid #fcc419;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    color: #1b1b1b
-}
-
-.modal-steps-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.modal-step-item {
-    background: #f1f3f5;
-    padding: 10px 14px;
-    border-radius: 6px;
-    border-left: 3px solid #22b8cf;
-}
-
-.modal-step-title {
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #333;
-}
-
-.modal-step-desc {
-    margin: 4px 0 0 0;
-    font-size: 0.85rem;
-    color: #666;
-}
-
-/* Кнопка раскрытия завершенных шагов */
-.btn-toggle-completed {
-    width: 100%;
-    background: #f1f3f5;
-    border: 1px solid #e9ecef;
-    padding: 10px 14px;
-    border-radius: 6px;
-    text-align: left;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #495057;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    transition: background-color 0.2s;
-}
-
-.btn-toggle-completed:hover {
-    background: #e9ecef;
-}
-
-/* Поворот стрелочки при открытии */
-.btn-toggle-completed .toggle-icon {
-    display: inline-block;
-    transition: transform 0.2s ease;
-    font-size: 0.75rem;
-}
-
-.btn-toggle-completed.active .toggle-icon {
-    transform: rotate(90deg);
-}
-
-/* Контейнер выполненных шагов: изначально скрыт */
-.modal-steps-completed {
-    display: none;
-    list-style: none;
-    padding-left: 0;
-    margin: 0 0 20px 0;
-}
-
-/* Показываем список, когда кнопка активна */
-.btn-toggle-completed.active + .modal-steps-completed {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 
 .step-item-main {
     display: flex;
@@ -618,37 +382,50 @@
     color: #2ecc71;
 }
 
-/*-----------------------------------------progress-bar----------------------------------------*/
-.goal-progress-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    margin-top: -5px;
-}
 
-.progress-bar-rail {
-    flex-grow: 1;
-    background-color: #e9ecef;
-    height: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress-bar-fill {
-    height: 100%;
-    background-color: var(--progress-color);
-    width: 0%;
-    border-radius: 4px;
-    transition: width 0.3s ease-in-out;
-}
 
 .progress-percentage-text {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #495057;
-    min-width: 35px;
+    display: block;
     text-align: right;
 }
 
+.numeric-goal-section {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+min-height: 80px;
+text-align: center;
+}
+
+.numeric-value {
+font-size: 1.4rem;
+font-weight: bold;
+color: #259;
+}
+
+.numeric-value span {
+color: #888;
+font-size: 1rem;
+font-weight: normal;
+}
+
+.numeric-label {
+margin-top: 4px;
+margin-bottom: 0;
+font-size: .8rem;
+color: #777;
+}
+/*---------------------------------------------------------------------------------------------*/
+.steps-more-dots {
+    padding-left: 10px;
+    font-weight: bold;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.btn-primary {
+    display: inline-block;
+    width: auto;
+    padding: 12px 30px;
+}

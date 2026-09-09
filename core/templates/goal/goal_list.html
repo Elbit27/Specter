@@ -4,6 +4,7 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'goal/css/goal_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'goal/css/modal.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -30,27 +31,26 @@
                                     <!-- Вычисляем проценты в реальном времени через Django-фильтр widthratio -->
                                     <div class="progress-bar-fill" style="width: {% widthratio goal.current_value goal.target_value 100 %}%"></div>
                                 </div>
-                                <span class="progress-percentage-text" style="display: block; text-align: right;">
+                                <span class="progress-percentage-text">
                                     {% widthratio goal.current_value goal.target_value 100 %}%
                                 </span>
                             </div>
 
-                            <!-- Для числовой цели показываем красивый виджет счетчика вместо списка шагов -->
-                            <div class="goal-steps-section" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80px; text-align: center;">
-                                <div style="font-size: 1.4rem; font-weight: bold; color: #333;">
-                                    {{ goal.current_value }} <span style="color: #888; font-size: 1rem; font-weight: normal;">/ {{ goal.target_value }}</span>
+                            <div class="goal-steps-section numeric-goal-section">
+                                <div class="numeric-value">
+                                    {{ goal.current_value }} <span>/ {{ goal.target_value }}</span>
                                 </div>
-                                <p style="font-size: 0.8rem; color: #777; margin-top: 4px; margin-bottom: 0;">Текущий числовой прогресс</p>
+                                <p class="numeric-label">Текущее значение / цель</p>
                             </div>
 
-                        <!-- ИНАЧЕ: ЕСЛИ ЦЕЛЬ СО СПИСКАМИ ШАГОВ (ВАШ ИСХОДНЫЙ КОД) -->
+
                         {% else %}
                             <div class="goal-progress-container"
                                  style="--progress-color: {{ goal.card_color|default:'#4a90e2' }};"
                                  data-total-steps="{{ goal.steps.count }}"
                          data-completed-steps="{{ goal.completed_steps|length }}">
                                 <div class="progress-bar-rail">
-                                    <div class="progress-bar-fill" style="width: 0%;"></div> <!-- Анимируется вашим JS -->
+                                    <div class="progress-bar-fill"></div>
                                 </div>
                                 <span class="progress-percentage-text">0%</span>
                             </div>
@@ -74,7 +74,7 @@
                                         {% endfor %}
                                     </ul>
                                     {% if goal.uncompleted_steps|length > 2 %}
-                                        <div class="steps-more-dots" style="padding-left: 10px; font-weight: bold; color: #888; letter-spacing: 2px;">...</div>
+                                        <div class="steps-more-dots">...</div>
                                     {% endif %}
                                 {% else %}
                                     <p class="no-steps">Все шаги выполнены или отсутствуют.</p>
@@ -91,7 +91,7 @@
                 <div class="empty-state">
                     <h2>You don't have any goals set yet.</h2>
                     <p>It's time to add the first one and start moving towards it!</p>
-                    <a href="/goal/create/" class="btn-primary" style="display: inline-block; width: auto; padding: 12px 30px;">Add goal</a>
+                    <a href="/goal/create/" class="btn-primary">Add goal</a>
                 </div>
             {% endfor %}
         </div>
@@ -111,7 +111,7 @@
                 </div>
 
 
-                <div id="modal-steps-block" style="display: none;">
+                <div id="modal-steps-block">
                     <div class="modal-completed-section">
                         <button type="button" id="modal-toggle-completed-btn" class="btn-toggle-completed">
                             <span class="toggle-icon">✓</span> Выполненные задачи (<span id="modal-completed-count">0</span>)
@@ -124,20 +124,21 @@
                 </div>
 
                 <!-- БЛОК ДЛЯ ЧИСЛОВЫХ ЦЕЛЕЙ -->
-                <div id="modal-numeric-block" style="display: none; padding: 15px 0; text-align: center;">
-                    <label for="modal-numeric-input" style="display: block; font-weight: 600; margin-bottom: 12px; font-size: 0.9rem; color: #555;">Текущий прогресс:</label>
-
-                    <div style="max-width: 140px; margin: 0 auto 10px auto; position: relative;">
-                        <input type="number" id="modal-numeric-input" value="0" min="0" style="width: 100%; text-align: center; padding: 10px; border: 2px solid #3498db; border-radius: 8px; font-size: 1.3rem; font-weight: bold; color: #2c3e50; outline: none; box-sizing: border-box;">
+                <div id="modal-numeric-block" class="modal-numeric-block">
+                    <label for="modal-numeric-input" class="numeric-input-label">Текущий прогресс:</label>
+                    <div class="numeric-input-wrapper">
+                        <input type="number" id="modal-numeric-input" value="0" min="0">
                     </div>
-
-                    <div style="font-size: 0.85rem; color: #888; margin-top: 5px;">
-                        из конечной цели: <span id="modal-numeric-target" style="font-weight: bold; color: #333;">0</span>
+                    <div class="numeric-target-text">
+                        из конечной цели: <span id="modal-numeric-target">0</span>
                     </div>
-
-                    <!-- Маленький индикатор статуса сохранения для удобства -->
-                    <div id="numeric-save-status" style="font-size: 0.75rem; color: #95a5a6; margin-top: 8px; min-height: 16px; transition: color 0.2s;"></div>
+                    <div id="numeric-save-status" class="numeric-save-status"></div>
                 </div>
+
+
+
+
+
 
             </div>
             <div class="detail-goal-footer">
@@ -149,24 +150,25 @@
     </div>
 
     <!-- Второе модальное окно для детального просмотра шага -->
-    <div id="step-detail-modal" class="modal-overlay" style="z-index: 1100;">
-        <div class="modal-window" style="max-width: 400px;">
+    <div id="step-detail-modal" class="modal-overlay">
+        <div class="modal-window">
             <div class="modal-header">
                 <h2 id="step-modal-title">Название шага</h2>
                 <button class="modal-close-btn" id="close-step-modal-btn">&times;</button>
             </div>
+
+
             <div class="modal-body">
                 <input type="hidden" id="edit-step-id">
-
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="step-modal-desc" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: #666;">Описание шага:</label>
-                    <textarea id="step-modal-desc" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; resize: vertical; box-sizing: border-box;" placeholder="Добавьте описание к этому шагу..."></textarea>
+                <div class="form-group step-description-group">
+                    <label for="step-modal-desc" class="step-description-label">Описание шага: </label>
+                    <textarea id="step-modal-desc" class="step-description-textarea" rows="4" placeholder="Добавьте описание к этому шагу..."></textarea>
                 </div>
-
-                <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                    <button type="button" id="save-step-desc-btn" class="btn-add-goal" style="padding: 8px 16px; font-size: 0.85rem; background-color: #2ecc71; border: none; cursor: pointer;">Сохранить</button>            </div>
+                <div class="step-save-wrapper">
+                    <button type="button" id="save-step-desc-btn" class="btn-add-goal btn-save-step">Сохранить</button>
                 </div>
             </div>
+
         </div>
     </div>
 </body>

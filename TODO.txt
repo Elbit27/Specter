@@ -53,8 +53,16 @@
 
 ---
 
+## Sep 6
+
+12. Rebuild goal card styles
+    12.1. Goal list page ./
+    12.2. Create Update Goal page ./
+
+---
+
 ## TODO
 
-12. Implement async and sync code for Telegram Bot
-13. Add functions to Specter Bot
-14. Find a free deployment platform
+Implement async and sync code for Telegram Bot
+Add functions to Specter Bot
+Find a free deployment platform

@@ -44,10 +44,10 @@
 }
 
 .steps-section-header h2 {
+    margin-top: 25px;
     font-size: 1.35rem;
     font-weight: 600;
     color: var(--text-main);
-    margin: 0 0 4px 0;
 }
 
 .steps-subtitle {
@@ -58,6 +58,7 @@
 
 /* Элементы форм */
 .form-group {
+    margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -265,7 +266,88 @@ button, .btn-primary, .btn-secondary {
     border: 1px solid #e9ecef;
 }
 
+/*------------------------------------------chose-type-----------------------*/
+.goal-type-title {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
 
+.goal-type-selector {
+    display: flex;
+    gap: 15px;
+}
+
+.goal-type-option {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.goal-type-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+.goal-type-option:hover {
+    border-color: #3498db;
+}
+
+.goal-type-option i {
+    margin-right: 4px;
+}
+
+/*------------------------------------------------БЛОК 2: ЧИСЛОВОЙ ТРЕКЕР----------------------------------*/
+
+.hidden-section {
+    display: none;
+}
+
+.numeric-section-header {
+    margin-top: 25px;
+}
+
+.numeric-form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.numeric-form-group {
+    flex: 1;
+}
+
+.preview-progress-wrapper {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f0f4f8;
+}
+
+.preview-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: .9rem;
+    font-weight: bold;
+    color: black;
+}
+
+.preview-progress-rail {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ddd;
+}
+
+.preview-progress-fill {
+    width: 0%;
+    height: 100%;
+    transition: width .3s;
+}
 
 
 

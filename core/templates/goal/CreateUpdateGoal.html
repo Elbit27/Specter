@@ -49,17 +49,19 @@
             </div>
 
             <!-- ВЫБОР ТИПА ТРЕКИНГА -->
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; margin-bottom: 8px; display: block;">Как отслеживать прогресс?</label>
-                <div class="goal-type-selector" style="display: flex; gap: 15px;">
-                    <label id="type-steps-label" style="flex: 1; border: 2px solid #ccc; padding: 15px; border-radius: 8px; cursor: pointer; text-align: center;">
-                        <input type="radio" name="goal_type" value="steps" style="margin-right: 8px;"
-                               {% if not goal or goal.goal_type == 'steps' %}checked{% endif %} onchange="toggleGoalType('steps')">
+            <div class="form-group">
+                <label class="goal-type-title">Как отслеживать прогресс?</label>
+                <div class="goal-type-selector">
+                    <label id="type-steps-label" class="goal-type-option">
+                        <input type="radio" name="goal_type" value="steps"
+                               {% if not goal or goal.goal_type == 'steps' %}checked{% endif %}
+                               onchange="toggleGoalType('steps')">
                         <i class="bi bi-card-checklist"></i> Конкретные шаги (список)
                     </label>
-                    <label id="type-numeric-label" style="flex: 1; border: 2px solid #ccc; padding: 15px; border-radius: 8px; cursor: pointer; text-align: center;">
-                        <input type="radio" name="goal_type" value="numeric" style="margin-right: 8px;"
-                               {% if goal.goal_type == 'numeric' %}checked{% endif %} onchange="toggleGoalType('numeric')">
+                    <label id="type-numeric-label" class="goal-type-option">
+                        <input type="radio" name="goal_type" value="numeric"
+                               {% if goal.goal_type == 'numeric' %}checked{% endif %}
+                               onchange="toggleGoalType('numeric')">
                         <i class="bi bi-hash"></i> Числовой прогресс (счетчик)
                     </label>
                 </div>
@@ -67,7 +69,7 @@
 
             <!-- БЛОК 1: ШАГИ СПИСКОМ -->
             <div id="section-steps-type" {% if goal.goal_type == 'numeric' %}style="display:none;"{% endif %}>
-                <div class="steps-section-header" style="margin-top: 25px;">
+                <div class="steps-section-header">
                     <h2><i class="bi bi-card-checklist"></i> Шаги выполнения (Задачи)</h2>
                     <p class="steps-subtitle">Разделите цель на конкретные подзадачи</p>
                 </div>
@@ -99,31 +101,49 @@
             </div>
 
             <!-- БЛОК 2: ЧИСЛОВОЙ ТРЕКЕР -->
-            <div id="section-numeric-type" {% if not goal or goal.goal_type == 'steps' %}style="display:none;"{% endif %}>
-                <div class="steps-section-header" style="margin-top: 25px;">
+            <div id="section-numeric-type" class="{% if not goal or goal.goal_type == 'steps' %}hidden-section{% endif %}">
+                <div class="steps-section-header numeric-section-header">
                     <h2><i class="bi bi-hash"></i> Прогресс в числах</h2>
                     <p class="steps-subtitle">Задайте планку и меняйте значение</p>
                 </div>
-                <div class="form-row" style="display: flex; gap: 20px;">
-                    <div class="form-group" style="flex: 1;">
+                <div class="form-row numeric-form-row">
+                    <div class="form-group numeric-form-group">
                         <label for="current_value">Текущий результат</label>
-                        <input type="number" id="current_value" value="{{ goal.current_value|default:'0' }}" min="0" placeholder="Например: 13">
+                        <input type="number" id="current_value" value="{{ goal.current_value|default:'0' }}" min="0" placeholder="????????: 13">
                     </div>
-                    <div class="form-group" style="flex: 1;">
+                    <div class="form-group numeric-form-group">
                         <label for="target_value">Целевое значение (Максимум)</label>
-                        <input type="number" id="target_value" value="{{ goal.target_value|default:'100' }}" min="1" placeholder="Например: 20">
+                        <input type="number" id="target_value" value="{{ goal.target_value|default:'100' }}" min="1" placeholder="????????: 20">
                     </div>
                 </div>
-                <div class="preview-progress-wrapper" style="margin-top: 20px; background: #f0f4f8; padding: 15px; border-radius: 8px;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">
+                <div class="preview-progress-wrapper">
+                    <div class="preview-progress-header">
                         <span>Превью заполнения шкалы:</span>
                         <span id="preview-progress-percent">0%</span>
                     </div>
-                    <div style="width: 100%; background: #ddd; height: 12px; border-radius: 6px; overflow: hidden;">
-                        <div id="preview-progress-bar" style="width: 0%; background: {{ goal.card_color|default:'#4a90e2' }}; height: 100%; transition: width 0.3s;"></div>
+                    <div class="preview-progress-rail">
+                        <div id="preview-progress-bar" class="preview-progress-fill" style="background:{{ goal.card_color|default:'#4a90e2' }};width:0%;"></div>
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="form-actions" style="margin-top: 30px;">
                 <button type="submit" class="btn-primary">
