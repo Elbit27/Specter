@@ -37,3 +37,13 @@ class Poma(models.Model):
 
     def __str__(self):
         return f"{self.day} - {self.item.name}"
+
+
+# This should be in a separate application 'profile'
+class TelegramProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='telegram_profile')
+    telegram_username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+    telegram_chat_id = models.BigIntegerField(unique=True, blank=True, null=True)
+
+    def __str__(self):
+        return f"Профиль {self.user.username} (TG-ник: {self.telegram_username})"

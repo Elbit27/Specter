@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Poma
+from .models import Item, Poma, TelegramProfile
 
 class PomaInline(admin.TabularInline):  # можно StackedInline для вертикального вида
     model = Poma
@@ -14,3 +14,7 @@ class ItemAdmin(admin.ModelAdmin):
 @admin.register(Poma)
 class PomaAdmin(admin.ModelAdmin):
     list_display = ('day', 'item')  # стандартная админка для Poma
+
+@admin.register(TelegramProfile)
+class TelegramProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'telegram_chat_id')

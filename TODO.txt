@@ -53,7 +53,7 @@
 
 ---
 
-## Sep 6
+## Sep 9
 
 12. Rebuild goal card styles
     12.1. Goal list page ./
@@ -61,8 +61,22 @@
 
 ---
 
+
+## Sep 21
+
+13. Add functions to Specter Bot
+    13.1. Rename Bot ./
+    13.2. Linking telegram to account ./
+
+
+---
+
+
+
+
+
+
 ## TODO
 
 Implement async and sync code for Telegram Bot
-Add functions to Specter Bot
 Find a free deployment platform
