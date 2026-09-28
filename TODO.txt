@@ -74,12 +74,21 @@
 
 14. New page. 'ToDo page'
     14.1. Create a table in DB, and register to admin ./
+
     14.2. Create endpoints ./
         14.2.1. Add_task endpoint ./ Sep28-12:27
         14.2.2. Filtration on todo listing page ./ 14:37
+        14.2.3. Check completed task ./ 20:07
+
     14.3. Make up a page
         14.3.1. Add_task page ./ Sep28-12:42
-    14.4. Check completed task
+        14.3.2. Check completed task animation ./ 20:26
+
+    14.4. Add functions to specter bot
+        1.4.1. What tasks for today
+        1.4.2. Check completed task
+        1.4.3. Add task for tomorrow
+        1.4.4. Check tomorrow's tasks
 
 ---
 

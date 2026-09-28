@@ -1,53 +1,69 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %}Tasks{% endblock %}
+{% block title %}Todos{% endblock %}
 
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'todo/css/todo_list.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 {% endblock %}
 
 {% block content %}
 
-<div class="tasks-container">
+<div class="todos-container">
 
-    <div class="tasks-header">
-        <h1>My Tasks for today</h1>
-        <a href="/todo/add_task/" class="add-task-btn">
+    <div class="todos-header">
+        <h1>My Todos for today</h1>
+        <a href="/todo/add_todo/" class="add-todo-btn">
             <i class="bi bi-plus-lg"></i>
-            Add task for tomorrow
+            Add todo for tomorrow
         </a>
     </div>
 
-
-
     {% if todo %}
-        <div class="tasks-list">
-            {% for task in todo %}
-                <div class="task-card">
-                    <h2>{{ task.title }}</h2>
-                    {% if task.description %}
-                        <p class="task-description">
-                            {{ task.description }}
+        <div class="todos-list">
+
+            {% for todo in todo %}
+                <div class="todo-card {% if todo.completed %}completed{% endif %}" data-id="{{ todo.id }}">
+
+                    <h2>{{ todo.title }}</h2>
+
+                    {% if todo.description %}
+                        <p class="todo-description">
+                            {{ todo.description }}
                         </p>
                     {% endif %}
-                    <div class="task-date">
-                        Created {{ task.created_at|date:"d.m.Y H:i" }}
+
+                    <div class="todo-date">
+                        Created {{ todo.created_at|date:"d.m.Y H:i" }}
                     </div>
+
+                    <div class="todo-actions-inline">
+                        <button type="button" class="btn-todo-action btn-todo-complete">
+                            <i class="bi {% if todo.completed %}bi-check-circle-fill{% else %}bi-circle{% endif %}"></i>
+                        </button>
+                    </div>
+
                 </div>
             {% endfor %}
+
         </div>
 
     {% else %}
 
         <div class="empty-state">
-            <h2>No tasks</h2>
-            <p>You don't have any tasks yet.</p>
+            <h2>No todos</h2>
+            <p>You don't have any todos yet.</p>
         </div>
 
     {% endif %}
 
 </div>
+
+<script>
+    const CSRF_TOKEN = '{{ csrf_token }}';
+</script>
+<script src="{% static 'todo/js/todo_list.js' %}"></script>
 
 {% endblock %}

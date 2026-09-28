@@ -3,14 +3,14 @@
 {% load static %}
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'todo/css/add_task.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/css/add_todo.css' %}">
 {% endblock %}
 
 
 {% block title %}Добавление задания{% endblock %}
 
 {% block content %}
-<section class="task-form">
+<section class="todo-form">
 
     <h2>Заполните информацию</h2>
 
@@ -26,7 +26,7 @@
         </div>
         {% endif %}
 
-        <form method="POST" action="{% url 'add-task' %}">
+        <form method="POST" action="{% url 'add-todo' %}">
             {% csrf_token %}
             <label for="title">Название задания:</label>
             <input type="text" id="title" name="title" required>
