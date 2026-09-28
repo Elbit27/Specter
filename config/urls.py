@@ -19,6 +19,7 @@ urlpatterns = [
     path('schedule/', include('schedule.urls')),
     path('report/', include('report.urls')),
     path('goal/', include('goal.urls')),
+    path('todo/', include('todo.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

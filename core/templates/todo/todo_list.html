@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'todo/css/todo_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="tasks-container">
+
+    <div class="tasks-header">
+        <h1>My Tasks for today</h1>
+        <a href="/todo/add_task/" class="add-task-btn">
+            <i class="bi bi-plus-lg"></i>
+            Add task for tomorrow
+        </a>
+    </div>
+
+
+
+    {% if todo %}
+        <div class="tasks-list">
+            {% for task in todo %}
+                <div class="task-card">
+                    <h2>{{ task.title }}</h2>
+                    {% if task.description %}
+                        <p class="task-description">
+                            {{ task.description }}
+                        </p>
+                    {% endif %}
+                    <div class="task-date">
+                        Created {{ task.created_at|date:"d.m.Y H:i" }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+            <h2>No tasks</h2>
+            <p>You don't have any tasks yet.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

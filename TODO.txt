@@ -68,10 +68,20 @@
     13.1. Rename Bot ./
     13.2. Linking telegram to account ./
 
-
 ---
 
+## Sep 27-28
 
+14. New page. 'ToDo page'
+    14.1. Create a table in DB, and register to admin ./
+    14.2. Create endpoints ./
+        14.2.1. Add_task endpoint ./ Sep28-12:27
+        14.2.2. Filtration on todo listing page ./ 14:37
+    14.3. Make up a page
+        14.3.1. Add_task page ./ Sep28-12:42
+    14.4. Check completed task
+
+---
 
 
 

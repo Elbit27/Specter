@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'schedule',
     'core',
     'goal',
+    'todo',
 
     'django.contrib.sites',
 
