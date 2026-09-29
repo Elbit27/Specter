@@ -11,3 +11,4 @@ telebot
 django-allauth
 jwt
 pytest-django
+pytelegrambotapi
