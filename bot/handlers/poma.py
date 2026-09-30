@@ -8,14 +8,6 @@ def register_poma_handlers(bot):
         chat_id = message.chat.id
         tg_profile = TelegramProfile.objects.filter(telegram_chat_id=chat_id).first()
 
-        if not tg_profile:
-            bot.reply_to(
-                message,
-                "Ваш Telegram ещё не привязан к аккаунту.\n"
-                "Сначала выполните команду /start."
-            )
-            return
-
         user = tg_profile.user
 
         item = Item.objects.filter(name__iexact=project_name, user=user).first()
