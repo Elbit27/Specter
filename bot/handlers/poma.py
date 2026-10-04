@@ -1,20 +1,36 @@
 from datetime import datetime
-from schedule.models import Poma, Item, TelegramProfile
+
+from schedule.models import Poma, Item
+
 
 def register_poma_handlers(bot):
-    @bot.message_handler(func=lambda message: True)
-    def add_poma(message):
-        project_name = message.text.strip()
-        chat_id = message.chat.id
-        tg_profile = TelegramProfile.objects.filter(telegram_chat_id=chat_id).first()
 
-        user = tg_profile.user
+    @bot.message_handler(commands=['poma'])
+    def add_poma(message, telegram_profile):
+        project_name = message.text.replace('/poma', '', 1).strip()
 
-        item = Item.objects.filter(name__iexact=project_name, user=user).first()
+        if not project_name:
+            bot.reply_to(
+                message,
+                "Укажите название проекта.\n"
+                "Например: /poma Project"
+            )
+            return
+
+        user = telegram_profile.user
+
+        item = Item.objects.filter(
+            name__iexact=project_name,
+            user=user
+        ).first()
 
         if item:
             day_name = datetime.now().strftime('%A')
-            Poma.objects.create(item=item, day=day_name)
+
+            Poma.objects.create(
+                item=item,
+                day=day_name
+            )
 
             bot.reply_to(
                 message,

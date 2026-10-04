@@ -85,16 +85,17 @@
         14.3.2. Check completed task animation ./ 20:26
 
 
-Sep 29-30
+Sep 29 - Oct 4
 
 
     14.4. Add functions to specter bot
         1.4.1. Refactor bot into separate modules ./ 18:43
         1.4.2. Create middleware to chek if user have tg_profile connected on web ./ 15:59
-        1.4.3. What tasks for today
-        1.4.4. Check completed task
-        1.4.5. Add task for tomorrow
-        1.4.6. Check tomorrow's tasks
+        1.4.3. What tasks for today  ./ Oct_3 - 16:43
+        1.4.4. Mark completed task  ./ Oct_4 - 12:43
+        1.4.5. Add task for tomorrow  ./ Oct_3 - 15:25
+        1.4.6. Check tomorrow's tasks   ./ Oct_4 - 12:58
+        1.4.7. Delete tasks   ./ Oct_4 - 13:09
 
 ---
 
