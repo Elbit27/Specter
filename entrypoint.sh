@@ -12,6 +12,3 @@ password = os.environ.get("SUPERUSERS_PASSWORD", "admin123")
 if not User.objects.filter(username="admin").exists():
     User.objects.create_superuser("admin", "admin@example.com", password)
 EOF
-
-GUNICORN_PORT=${PORT:-8000}
-exec gunicorn config.wsgi:application --bind 0.0.0.0:$GUNICORN_PORT

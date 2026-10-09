@@ -12,5 +12,3 @@ ENTRYPOINT ["sh", "/entrypoint.sh"]
 
 # Копируем все остальные файлы в контейнер
 COPY . .
-
-EXPOSE 8000
