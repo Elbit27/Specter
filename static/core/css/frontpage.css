@@ -1,0 +1,177 @@
+/* --- Глобальные настройки --- */
+.text-gradient {
+    background: linear-gradient(90deg, #9B111E, #ff4d4d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.min-vh-75 { min-height: 75vh; }
+
+/* --- Hero Section --- */
+.hero-wrapper {
+    position: relative;
+    background-color: var(--bg-graphite);
+}
+
+.glow-element {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(155, 17, 30, 0.15) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.pulsating-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* --- Кнопки --- */
+
+/* --- Кнопки (Исправлено) --- */
+.btn-specter {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.primary-glow {
+    background-color: var(--accent-red);
+    color: white !important;
+    box-shadow: 0 10px 20px rgba(141, 169, 196, 0.3);
+}
+
+.primary-glow:hover {
+    background-color: #b31624;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(155, 17, 30, 0.4);
+    color: white !important;
+}
+
+.secondary-outline {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white !important;
+    background: transparent;
+}
+
+.secondary-outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-red);
+    color: var(--accent-red) !important;
+}
+
+.white-btn {
+    background: white;
+    color: var(--accent-red) !important;
+}
+
+.white-btn:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+/* --- Декоративные карточки в Hero --- */
+.hero-card-stack {
+    position: relative;
+    height: 400px;
+}
+
+.glass-card {
+    position: absolute;
+    background: rgba(45, 50, 59, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card-1 { top: 20%; right: 10%; z-index: 2; width: 250px; }
+.card-2 { top: 45%; right: 25%; z-index: 1; width: 220px; }
+
+.mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 30px;
+}
+
+.mini-chart .bar {
+    width: 6px;
+    background: var(--accent-red);
+    border-radius: 2px;
+}
+
+/* --- Блок статистики --- */
+.stats-bar {
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(28, 33, 40, 0.5);
+}
+
+/* --- Features --- */
+.feature-box {
+    background: var(--nav-graphite);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    transition: 0.3s;
+}
+
+.feature-box.active {
+    border-color: var(--accent-red);
+    background: linear-gradient(145deg, var(--nav-graphite), #23272e);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(155, 17, 30, 0.1);
+    color: var(--accent-red);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+/* --- CTA Banner --- */
+.cta-inner {
+    background: linear-gradient(135deg, #9B111E 0%, #630a12 100%);
+    padding: 80px 40px;
+    border-radius: 40px;
+    color: white;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 17, 30, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(155, 17, 30, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 17, 30, 0); }
+}

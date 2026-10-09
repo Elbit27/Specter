@@ -1,0 +1,165 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'goal/css/CreateUpdateGoal.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="goal-form-wrapper">
+    <div class="goal-form-container">
+        <form id="goal-form">
+            <input type="hidden" id="goal-id" value="{{ goal.id|default:'' }}">
+
+            <div class="form-top-header">
+                <h1 class="form-group label">{% if goal %}Редактировать цель{% else %}Создать новую цель{% endif %}</h1>
+                {% if goal %}
+                    <button type="button" class="btn-delete" onclick="deleteGoal('{{ goal.id }}')">
+                        <i class="bi bi-trash3"></i> Удалить
+                    </button>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="title">Название цели</label>
+                <input type="text" id="title" value="{{ goal.title|default:'' }}" placeholder="Например: Дойти до 100 юнита в Duolingo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание цели</label>
+                <textarea id="description" rows="3" placeholder="Опишите детали вашей цели...">{{ goal.description|default:'' }}</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="card_color_picker">Цвет карточки цели</label>
+                    <div class="custom-color-picker-wrapper">
+                        <div id="color-preview-circle" class="color-preview-circle" style="background-color: {{ goal.card_color|default:'#4a90e2' }};">
+                            <i class="bi bi-pipette"></i>
+                        </div>
+                        <input type="color" id="card_color" name="card_color" value="{{ goal.card_color|default:'#4a90e2' }}">
+                        <span id="color-hex-text" class="color-hex-text">{{ goal.card_color|default:'#4a90e2' }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prize">Награда за выполнение</label>
+                    <input type="text" id="prize" value="{{ goal.prize|default:'' }}" placeholder="Что подарите себе за успех?">
+                </div>
+            </div>
+
+            <!-- ВЫБОР ТИПА ТРЕКИНГА -->
+            <div class="form-group">
+                <label class="goal-type-title">Как отслеживать прогресс?</label>
+                <div class="goal-type-selector">
+                    <label id="type-steps-label" class="goal-type-option">
+                        <input type="radio" name="goal_type" value="steps"
+                               {% if not goal or goal.goal_type == 'steps' %}checked{% endif %}
+                               onchange="toggleGoalType('steps')">
+                        <i class="bi bi-card-checklist"></i> Конкретные шаги (список)
+                    </label>
+                    <label id="type-numeric-label" class="goal-type-option">
+                        <input type="radio" name="goal_type" value="numeric"
+                               {% if goal.goal_type == 'numeric' %}checked{% endif %}
+                               onchange="toggleGoalType('numeric')">
+                        <i class="bi bi-hash"></i> Числовой прогресс (счетчик)
+                    </label>
+                </div>
+            </div>
+
+            <!-- БЛОК 1: ШАГИ СПИСКОМ -->
+            <div id="section-steps-type" {% if goal.goal_type == 'numeric' %}style="display:none;"{% endif %}>
+                <div class="steps-section-header">
+                    <h2><i class="bi bi-card-checklist"></i> Шаги выполнения (Задачи)</h2>
+                    <p class="steps-subtitle">Разделите цель на конкретные подзадачи</p>
+                </div>
+                <div id="steps-container">
+                    {% if goal and goal.goal_type == 'steps' %}
+                        {% for step in goal.steps.all %}
+                            <div class="step-card" data-step-id="{{ step.id }}" data-completed="{{ step.completed|yesno:'true,false' }}">
+                                <div class="step-header">
+                                    <h3>Шаг</h3>
+                                    <button type="button" class="btn-delete" onclick="this.closest('.step-card').remove()">
+                                        <i class="bi bi-trash3"></i> Удалить
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label>Название шага</label>
+                                    <input type="text" class="step-title" value="{{ step.title }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Описание</label>
+                                    <textarea class="step-description" rows="2">{{ step.description }}</textarea>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-step-btn" class="btn-secondary" style="margin-top: 15px;">
+                    <i class="bi bi-plus-lg"></i> Добавить новый шаг
+                </button>
+            </div>
+
+            <!-- БЛОК 2: ЧИСЛОВОЙ ТРЕКЕР -->
+            <div id="section-numeric-type" class="{% if not goal or goal.goal_type == 'steps' %}hidden-section{% endif %}">
+                <div class="steps-section-header numeric-section-header">
+                    <h2><i class="bi bi-hash"></i> Прогресс в числах</h2>
+                    <p class="steps-subtitle">Задайте планку и меняйте значение</p>
+                </div>
+                <div class="form-row numeric-form-row">
+                    <div class="form-group numeric-form-group">
+                        <label for="current_value">Текущий результат</label>
+                        <input type="number" id="current_value" value="{{ goal.current_value|default:'0' }}" min="0" placeholder="????????: 13">
+                    </div>
+                    <div class="form-group numeric-form-group">
+                        <label for="target_value">Целевое значение (Максимум)</label>
+                        <input type="number" id="target_value" value="{{ goal.target_value|default:'100' }}" min="1" placeholder="????????: 20">
+                    </div>
+                </div>
+                <div class="preview-progress-wrapper">
+                    <div class="preview-progress-header">
+                        <span>Превью заполнения шкалы:</span>
+                        <span id="preview-progress-percent">0%</span>
+                    </div>
+                    <div class="preview-progress-rail">
+                        <div id="preview-progress-bar" class="preview-progress-fill" style="background:{{ goal.card_color|default:'#4a90e2' }};width:0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="form-actions" style="margin-top: 30px;">
+                <button type="submit" class="btn-primary">
+                    {% if goal %}
+                        <i class="bi bi-check-all me-2"></i> Сохранить изменения
+                    {% else %}
+                        <i class="bi bi-cloud-upload-fill me-2"></i> Создать цель
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script src="/static/goal/js/CreateUpdateGoal.js"></script>
+{% endblock %}

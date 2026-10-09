@@ -1,0 +1,168 @@
+:root {
+    --white: #ffffff;
+    --bg-graphite: #23272e;        /* Основной фон страниц */
+    --nav-graphite: #1c2128;       /* Фон навигации */
+    --card-graphite: #2d323b;      /* Фон карточек и панелей */
+    --accent-red: #9B111E;         /* Твой фирменный красный */
+    --accent-red-hover: #b31624;
+    --text-muted: #adbac7;         /* Приглушенный текст */
+    --border-color: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    background-color: var(--bg-graphite);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: var(--nav-graphite) !important;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--white) !important;
+}
+
+.brand-accent {
+    color: var(--accent-red);
+}
+
+/* Уведомления */
+.notification-bell-icon {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+}
+
+.badge-custom {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: var(--accent-red) !important;
+    font-size: 0.65rem;
+    padding: 3px 6px;
+    border: 2px solid var(--nav-graphite);
+}
+
+.dropdown-menu {
+    background-color: var(--card-graphite) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.dropdown-menu .fw-bold {
+    color: var(--white);
+    border-bottom-color: var(--border-color) !important;
+}
+
+/* UI Elements */
+.avatar-circle {
+    width: 35px;
+    height: 35px;
+    background-color: var(--accent-red); /* Аватар по умолчанию красный */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.btn-auth {
+    background-color: var(--accent-red) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 8px 25px;
+    transition: 0.3s;
+}
+
+.btn-auth:hover {
+    background-color: var(--accent-red-hover) !important;
+}
+
+/* Боковое меню (User Panel) */
+.user-side-panel {
+    background-color: var(--card-graphite) !important;
+    padding: 15px !important;
+}
+
+.side-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: 0.2s;
+}
+
+.card-profile {
+    background-color: var(--white);
+    color: var(--nav-graphite) !important;
+}
+
+.card-action {
+    background-color: var(--input-bg, #1c2128);
+    color: var(--white) !important;
+    border: 1px solid var(--border-color);
+}
+
+.card-action:hover {
+    background-color: var(--accent-red);
+}
+
+.card-action i {
+    margin-right: 12px;
+    color: var(--accent-red);
+}
+
+.card-action:hover i {
+    color: white;
+}
+
+.card-logout {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ff4d4d !important;
+    margin-top: 20px;
+}
+
+.card-logout:hover {
+    background-color: #ff4d4d;
+    color: white !important;
+}
+
+/* Особая кнопка для игры */
+.highlight-game {
+    border: 1px solid var(--accent-red);
+    box-shadow: 0 0 10px rgba(155, 17, 30, 0.2);
+}
+
+/* Offcanvas (Мобильное меню) */
+#userMenuOffcanvas {
+    background-color: var(--nav-graphite) !important;
+    border-left: 1px solid var(--border-color) !important;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Скроллбар для уведомлений */
+#notification-items::-webkit-scrollbar {
+    width: 6px;
+}
+#notification-items::-webkit-scrollbar-track {
+    background: var(--nav-graphite);
+}
+#notification-items::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}

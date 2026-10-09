@@ -1,0 +1,91 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Вход | Specter{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="login-wrapper">
+    <div class="login-container">
+        <!-- Левая часть: Приветствие -->
+        <section class="brand-section">
+            <h1 class="brand-logo">Specter</h1>
+            <div class="brand-description">
+                <p>Ваша умная среда для образовательных результатов.</p>
+                <p class="secondary-text">Проектируйте и анализируйте эффективно.</p>
+            </div>
+        </section>
+
+        <!-- Правая часть: Форма -->
+        <section class="form-section">
+            <div class="login-card">
+                <form method="post" action="{% url 'account_login' %}" class="auth-form">
+                    {% csrf_token %}
+
+                    <h2 class="form-title">Авторизация</h2>
+
+                    {% if form.non_field_errors %}
+                        <div class="error-summary">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="field-container">
+                        <div class="input-group">
+                            <input type="text" name="login" placeholder="Логин или Email" required autofocus>
+                        </div>
+
+                        <div class="input-group password-field">
+                            <input type="password" name="password" id="id_password" placeholder="Пароль" required>
+                            <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Показать пароль">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn">Войти</button>
+
+                    <div class="login-helpers">
+                        <a href="{% url 'account_reset_password' %}" class="helper-link">Забыли пароль?</a>
+                        <span class="dot-separator">•</span>
+                        <a href="{% url 'account_signup' %}" class="helper-link highlight">Регистрация</a>
+                    </div>
+
+                    <div class="divider">
+                        <span>или через</span>
+                    </div>
+
+                    <div class="social-login">
+                        <a href="{% provider_login_url 'google' %}" class="google-btn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G">
+                            Google
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.querySelector('#togglePassword');
+        const passInput = document.querySelector('#id_password');
+
+        toggleBtn.addEventListener('click', () => {
+            const isPass = passInput.type === 'password';
+            passInput.type = isPass ? 'text' : 'password';
+            toggleBtn.classList.toggle('active', isPass);
+        });
+    });
+</script>
+{% endblock %}

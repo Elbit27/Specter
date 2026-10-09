@@ -1,0 +1,108 @@
+## Jul 13
+
+1. Rename Lika to Specter in DB — ✅
+2. Update goal card functionality — ✅
+
+---
+
+## Jul 14
+
+3. Improve goal style — ✅
+4. Goal detail — ✅
+5. Check step — ✅
+
+---
+
+## Jul 19
+
+6. Improve goal card detail — ✅ `fd/at 19:07`
+   6.1. Collect completed steps into spoiler button — ✅
+   6.2. Show step's description after clicking on it — ✅
+   6.3. Completion status falls down after opening edit page — ✅
+   6.4. Truncate titles — ✅
+
+7. Add progress bar to each card — ✅ `fd/at 19:55`
+   7.1. Write up progress bar part on templates (HTML) — ✅
+   7.2. Make the color of the progress bar's fill the same as the card's color — ✅
+
+> Next time, I'll strive to commit more.
+> Sorry!
+
+---
+
+## Jul 20
+
+8. Fix `required=true` issues — ✅ `fd/at 14:32`
+   8.1. Update goal and step models — ✅
+   8.2. Delete card on the edit page — ✅
+
+9. Add more card colors or just a palette — ✅ `fd/at 14:53`
+   9.1. Keep color code in DB — ✅
+   9.2. Add palette to Create/Update page — ✅
+
+10. Fix time inconsistency bug in schedule and report pages — ✅ `fd/at 18:43`
+
+---
+
+## Sep 6
+
+11. Add another goal card type
+    11.1. Add another goal card type — ✅
+    11.2. Design a unique "Update Progress in Modal Window" form — ✅
+    11.3. Create an own goal card — ✅
+
+---
+
+## Sep 9
+
+12. Rebuild goal card styles
+    12.1. Goal list page ./
+    12.2. Create Update Goal page ./
+
+---
+
+
+## Sep 21
+
+13. Add functions to Specter Bot
+    13.1. Rename Bot ./
+    13.2. Linking telegram to account ./
+
+---
+
+## Sep 27-28
+
+14. New page. 'ToDo page'
+    14.1. Create a table in DB, and register to admin ./
+
+    14.2. Create endpoints ./
+        14.2.1. Add_task endpoint ./ Sep28-12:27
+        14.2.2. Filtration on todo listing page ./ 14:37
+        14.2.3. Check completed task ./ 20:07
+
+    14.3. Make up a page
+        14.3.1. Add_task page ./ Sep28-12:42
+        14.3.2. Check completed task animation ./ 20:26
+
+
+Sep 29 - Oct 4
+
+
+    14.4. Add functions to specter bot
+        1.4.1. Refactor bot into separate modules ./ 18:43
+        1.4.2. Create middleware to chek if user have tg_profile connected on web ./ 15:59
+        1.4.3. What tasks for today  ./ Oct_3 - 16:43
+        1.4.4. Mark completed task  ./ Oct_4 - 12:43
+        1.4.5. Add task for tomorrow  ./ Oct_3 - 15:25
+        1.4.6. Check tomorrow's tasks   ./ Oct_4 - 12:58
+        1.4.7. Delete tasks   ./ Oct_4 - 13:09
+
+---
+
+
+
+
+## TODO
+
+Implement async and sync code for Telegram Bot
+Find a free deployment platform

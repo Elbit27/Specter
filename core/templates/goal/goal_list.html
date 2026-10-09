@@ -1,0 +1,181 @@
+{% extends 'core/base.html' %}
+{% load static dict_extras %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'goal/css/goal_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'goal/css/modal.css' %}">
+{% endblock %}
+
+{% block content %}
+<body>
+
+    <div class="list-container">
+        <div class="list-header">
+            <h1>Мои цели</h1>
+            <a href="/goal/create/" class="btn-add-goal">+ Создать цель</a>
+        </div>
+
+        <div class="goals-grid">
+            {% for goal in goals %}
+                <div class="goal-card" data-id="{{ goal.id }}" style="border-top: 6px solid {{ goal.card_color|default:'#4a90e2' }}">
+                    <div class="goal-body">
+
+                        <h2 class="goal-title">{{ goal.title|truncatechars:20 }}</h2>
+                        <p class="goal-desc">{{ goal.description|default:"Без описания"|truncatechars:20 }}</p>
+
+                        <!-- ПРОВЕРКА ТИПА ЦЕЛИ: ЕСЛИ ЧИСЛОВОЙ СЧЕТЧИК -->
+                        {% if goal.goal_type == 'numeric' %}
+                            <div class="goal-progress-container" style="--progress-color: {{ goal.card_color|default:'#4a90e2' }}; margin-top: 15px;">
+                                <div class="progress-bar-rail">
+                                    <!-- Вычисляем проценты в реальном времени через Django-фильтр widthratio -->
+                                    <div class="progress-bar-fill" style="width: {% widthratio goal.current_value goal.target_value 100 %}%"></div>
+                                </div>
+                                <span class="progress-percentage-text">
+                                    {% widthratio goal.current_value goal.target_value 100 %}%
+                                </span>
+                            </div>
+
+                            <div class="goal-steps-section numeric-goal-section">
+                                <div class="numeric-value">
+                                    {{ goal.current_value }} <span>/ {{ goal.target_value }}</span>
+                                </div>
+                                <p class="numeric-label">Текущее значение / цель</p>
+                            </div>
+
+
+                        {% else %}
+                            <div class="goal-progress-container"
+                                 style="--progress-color: {{ goal.card_color|default:'#4a90e2' }};"
+                                 data-total-steps="{{ goal.steps.count }}"
+                         data-completed-steps="{{ goal.completed_steps|length }}">
+                                <div class="progress-bar-rail">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <span class="progress-percentage-text">0%</span>
+                            </div>
+
+                            <!-- Отображение первых двух шагов списка -->
+                            <div class="goal-steps-section">
+                                {% if goal.uncompleted_steps %}
+                                    <ul class="steps-list">
+                                        {% for step in goal.uncompleted_steps|slice:":2" %}
+                                            <li class="step-item {% if step.is_completed %}completed{% endif %}" data-step-id="{{ step.id }}">
+                                                <div class="step-item-main">
+                                                    <span class="step-item-title">{{ step.title|truncatechars:20 }}</span>
+
+                                                    <div class="step-actions-inline">
+                                                        <button type="button" class="btn-step-action btn-step-complete" title="Отметить выполненным">
+                                                            <i class="bi {% if step.is_completed %}bi-check-circle-fill{% else %}bi-circle{% endif %}"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% if goal.uncompleted_steps|length > 2 %}
+                                        <div class="steps-more-dots">...</div>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="no-steps">Все шаги выполнены или отсутствуют.</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="goal-footer">
+                        <span class="goal-date">{{ goal.created_at|date:"d.m.Y" }}</span>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <h2>You don't have any goals set yet.</h2>
+                    <p>It's time to add the first one and start moving towards it!</p>
+                    <a href="/goal/create/" class="btn-primary">Add goal</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="goal-modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h2 id="modal-title">Название цели</h2>
+                <button class="modal-close-btn" id="close-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-desc" class="modal-goal-desc"></p>
+
+                <div id="modal-prize-wrapper" class="modal-prize-box">
+                    <strong>Награда:</strong> <span id="modal-prize"></span>
+                </div>
+
+
+                <div id="modal-steps-block">
+                    <div class="modal-completed-section">
+                        <button type="button" id="modal-toggle-completed-btn" class="btn-toggle-completed">
+                            <span class="toggle-icon">✓</span> Выполненные задачи (<span id="modal-completed-count">0</span>)
+                        </button>
+                        <ul id="modal-steps-completed" class="modal-steps-completed"></ul>
+                    </div>
+                    <div class="modal-steps-list">
+                        <ul id="modal-steps-uncompleted" class="modal-steps-uncompleted"></ul>
+                    </div>
+                </div>
+
+                <!-- БЛОК ДЛЯ ЧИСЛОВЫХ ЦЕЛЕЙ -->
+                <div id="modal-numeric-block" class="modal-numeric-block">
+                    <label for="modal-numeric-input" class="numeric-input-label">Текущий прогресс:</label>
+                    <div class="numeric-input-wrapper">
+                        <input type="number" id="modal-numeric-input" value="0" min="0">
+                    </div>
+                    <div class="numeric-target-text">
+                        из конечной цели: <span id="modal-numeric-target">0</span>
+                    </div>
+                    <div id="numeric-save-status" class="numeric-save-status"></div>
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="detail-goal-footer">
+                <div class="goal-actions">
+                    <a href="#" id="modal-edit-btn" class="btn-action-edit">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Второе модальное окно для детального просмотра шага -->
+    <div id="step-detail-modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h2 id="step-modal-title">Название шага</h2>
+                <button class="modal-close-btn" id="close-step-modal-btn">&times;</button>
+            </div>
+
+
+            <div class="modal-body">
+                <input type="hidden" id="edit-step-id">
+                <div class="form-group step-description-group">
+                    <label for="step-modal-desc" class="step-description-label">Описание шага: </label>
+                    <textarea id="step-modal-desc" class="step-description-textarea" rows="4" placeholder="Добавьте описание к этому шагу..."></textarea>
+                </div>
+                <div class="step-save-wrapper">
+                    <button type="button" id="save-step-desc-btn" class="btn-add-goal btn-save-step">Сохранить</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script src="/static/goal/js/GoalListDetail.js"></script>
+
+{% endblock %}

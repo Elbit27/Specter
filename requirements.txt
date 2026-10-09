@@ -1,0 +1,14 @@
+django
+djangorestframework
+pillow
+psycopg2-binary
+python-decouple
+dj-rest-auth
+drf-yasg
+django-filter
+gunicorn
+telebot
+django-allauth
+jwt
+pytest-django
+pytelegrambotapi

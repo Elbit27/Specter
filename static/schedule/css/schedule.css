@@ -1,0 +1,124 @@
+:root {
+    --bg-dark: #0d1117;
+    --table-bg: #161b22;
+    --border-color: #30363d;
+    --text-main: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent-red: #9B111E;
+    --input-bg: #0d1117;
+}
+
+/* Общий контейнер */
+.schedule-container {
+    background-color: var(--table-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 20px;
+    overflow-x: auto; /* Для мобильных устройств */
+}
+
+/* Стили таблицы */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-main);
+    font-size: 14px;
+}
+
+.schedule-table th, 
+.schedule-table td {
+    padding: 12px 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.schedule-table thead th {
+    background-color: rgba(48, 54, 61, 0.3);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Колонка с названием предмета */
+.subject-col {
+    text-align: left !important;
+    font-weight: 500;
+    min-width: 150px;
+    color: var(--text-main);
+}
+
+/* Стили инпутов */
+.day-input {
+    width: 50px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Состояние активного дня (сегодня) */
+.day-input.active {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 5px rgba(155, 17, 30, 0.3);
+}
+
+.day-input:focus {
+    border-color: #58a6ff;
+    background: #1c2128;
+}
+
+/* Отключенные инпуты (прошлые/будущие дни) */
+.day-input.disabled {
+    opacity: 0.5;
+    background: transparent;
+    border-color: transparent;
+    cursor: not-allowed;
+}
+
+/* Удаление стрелочек у input type="number" */
+.day-input::-webkit-outer-spin-button,
+.day-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Итоговая строка */
+.total-row {
+    background-color: rgba(48, 54, 61, 0.2);
+}
+
+.total-row td {
+    color: var(--accent-red);
+    font-weight: bold;
+}
+
+/* Кнопка добавления предмета */
+.add-subject-btn {
+    display: inline-block;
+    background-color: #238636; /* Зеленый в стиле GitHub */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    transition: background 0.2s;
+}
+
+.add-subject-btn:hover {
+    background-color: #2ea043;
+}
+
+/* Заголовок страницы */
+h1 {
+    color: var(--text-main);
+    margin-bottom: 20px;
+}

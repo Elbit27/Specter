@@ -1,0 +1,101 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Регистрация - Victorina Battle{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="fb-form-container signup-card">
+
+        <div class="brand-section">
+            <h1 class="brand-logo"><span>Specter</span></h1>
+        </div>
+
+        {% if form.errors %}
+        <div class="error-summary" style="color: #f02849; background: #ffebe8; border: 1px solid #f02849; border-radius: 6px; padding: 15px; margin-bottom: 20px; font-size: 14px;">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p><strong>{{ field.label }}:</strong> {{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="fb-card">
+            <h2>Создать аккаунт</h2>
+            <p class="subtitle">Присоединяйтесь к образовательной платформе за несколько секунд.</p>
+            <hr class="form-divider">
+
+            <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Имя пользователя (никнейм)"
+                           value="{{ form_data.username|default:'' }}" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="Электронный адрес"
+                           value="{{ form_data.email|default:'' }}" required>
+                </div>
+
+                <div class="input-group password-field">
+                    <input type="password" name="password1" id="id_password_1" placeholder="Новый пароль" required>
+                    <button type="button" class="toggle-password-btn js-toggle-password" data-target="id_password_1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="input-group password-field">
+                    <input type="password" name="password2" id="id_password_2" placeholder="Повторите пароль" required>
+                    <button type="button" class="toggle-password-btn js-toggle-password" data-target="id_password_2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <p class="policy-text">
+                    Нажимая «Регистрация», вы соглашаетесь с нашими Правилами и Политикой данных.
+                </p>
+
+                <button type="submit" class="create-account-btn">
+                    Регистрация
+                </button>
+            </form>
+
+            <div class="login-link">
+                <a href="{% url 'account_login' %}">Уже есть аккаунт?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButtons = document.querySelectorAll('.js-toggle-password');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                if (input) {
+                    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                    input.setAttribute('type', type);
+                    this.style.color = type === 'text' ? '#38bdf8' : '#606770';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

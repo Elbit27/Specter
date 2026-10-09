@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+{% load static dict_extras %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/css/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-3 text-center">Расписание</h1>
+    <a href="/schedule/add_item/" class="add-subject-btn">
+       Добавить предмет
+    </a>
+
+
+<div class="schedule-container">
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th class="subject-col">Предмет</th>
+        {% for day in days %}
+          <th class="day-col">{{ day }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr data-item-id="{{ item.id }}">
+          <td class="subject-col">{{ item.name }}</td>
+          {% for day in days %}
+          <td class="day-col">
+              <input
+                  type="number"
+                  min="0"
+                  placeholder="-"
+                  class="day-input"
+                  data-day="{{ forloop.counter0 }}"
+                  value="{{ item_day_counts|dict_key:item.id|dict_key:day }}"              />
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+
+        <tr class="total-row">
+          <td class="subject-col font-bold">Итого</td>
+          {% for day in days %}
+          <td class="day-col font-bold" id="total-{{ forloop.counter0 }}">0</td>
+          {% endfor %}
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="{% static 'schedule/js/schedule.js' %}"></script>
+{% endblock %}
+
+
+

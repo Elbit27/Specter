@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/css/add_todo.css' %}">
+{% endblock %}
+
+
+{% block title %}Добавление задания{% endblock %}
+
+{% block content %}
+<section class="todo-form">
+
+    <h2>Заполните информацию</h2>
+
+        {% if form_errors %}
+        <div class="errors">
+            <ul>
+                {% for field, errors in form_errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'add-todo' %}">
+            {% csrf_token %}
+            <label for="title">Название задания:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="description">Описание задания:</label>
+            <input type="text" id="description" name="description">
+
+            <button type="submit">Добавить задание</button>
+        </form>
+
+</section>
+{% endblock %}

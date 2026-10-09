@@ -1,0 +1,366 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-gradient: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    --card-background: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --border-focus: #a5b4fc;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05);
+}
+
+.goal-form-wrapper {
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.goal-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+
+.form-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.steps-section-header {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+}
+
+.steps-section-header h2 {
+    margin-top: 25px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.steps-subtitle {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Элементы форм */
+.form-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+textarea,
+select {
+    font-family: inherit;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #f9fafb;
+    box-sizing: border-box;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--border-focus);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Карточки шагов */
+.step-card {
+    background: #f9fafb;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.step-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Кнопки */
+.form-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+button, .btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #f3f4f6;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+}
+
+.btn-delete:hover {
+    color: var(--danger-color);
+    background-color: #fee2e2;
+}
+
+.form-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-top-header h1 {
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* ---------------------------------------------- Контейнер палитры ----------------------------------------------*/
+.custom-color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+
+.color-preview-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.color-preview-circle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+#card_color {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Текстовый HEX-код рядом */
+.color-hex-text {
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    background: #f1f3f5;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+/*------------------------------------------chose-type-----------------------*/
+.goal-type-title {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.goal-type-selector {
+    display: flex;
+    gap: 15px;
+}
+
+.goal-type-option {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.goal-type-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+.goal-type-option:hover {
+    border-color: #3498db;
+}
+
+.goal-type-option i {
+    margin-right: 4px;
+}
+
+/*------------------------------------------------БЛОК 2: ЧИСЛОВОЙ ТРЕКЕР----------------------------------*/
+
+.hidden-section {
+    display: none;
+}
+
+.numeric-section-header {
+    margin-top: 25px;
+}
+
+.numeric-form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.numeric-form-group {
+    flex: 1;
+}
+
+.preview-progress-wrapper {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f0f4f8;
+}
+
+.preview-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: .9rem;
+    font-weight: bold;
+    color: black;
+}
+
+.preview-progress-rail {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ddd;
+}
+
+.preview-progress-fill {
+    width: 0%;
+    height: 100%;
+    transition: width .3s;
+}
+
+
+
+
+/* Адаптивность для мобильных телефонов */
+@media (max-width: 600px) {
+    .container {
+        padding: 24px;
+    }
+    .form-row, .form-actions {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+

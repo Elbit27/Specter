@@ -1,0 +1,43 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Вход через Google - Victorina{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/login.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="form-section">
+        <div class="login-card google-confirm-card">
+            <h1 class="brand-logo"><span>Specter</span></h1>
+
+            <div class="google-icon-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-icon-big">
+            </div>
+
+            <h3 class="auth-subtitle">{% trans "Confirm Sign In" %}</h3>
+            <p class="confirm-text">
+                Вы собираетесь авторизоваться в системе <strong>Specter</strong>, используя ваш корпоративный или личный профиль Google.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="login-btn">
+                    Подтвердить и войти
+                </button>
+            </form>
+
+            <div class="mt-3">
+                <a href="{% url 'account_login' %}" class="helper-link cancel-link">
+                    Вернуться назад
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,431 @@
+
+.goal-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.goal-title {
+    margin: 0 0 10px 0;
+    font-size: 1.35rem;
+    color: var(--text-color);
+}
+
+.goal-desc {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.goal-steps-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.goal-steps-section h3 {
+    font-size: 1rem;
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+}
+
+.steps-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.list-header h1 {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.btn-add-goal {
+    background-color: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-add-goal:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    align-items: start;
+}
+
+.goal-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.goal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.goal-body {
+    padding: 20px;
+}
+
+.goal-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.goal-title {
+    margin: 0 0 10px 0;
+    font-size: 1.35rem;
+    color: var(--text-color);
+}
+
+.goal-desc {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.goal-steps-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.goal-steps-section h3 {
+    font-size: 1rem;
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+}
+
+.steps-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-item {
+    background-color: var(--background);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.step-item-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-item-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.step-item-desc {
+    margin: 4px 0 0 0;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+.steps-more-dots {
+    padding-left: 0;
+    font-weight: bold;
+    color: #7f8c8d;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    margin-top: 4px;
+    font-size: 1.1rem;
+}
+
+.no-steps {
+    font-size: 0.85rem;
+    color: #95a5a6;
+    font-style: italic;
+    margin: 0;
+}
+
+.goal-footer {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.detail-goal-footer {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.goal-date {
+    color: #95a5a6;
+}
+
+.btn-action-edit {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-action-edit:hover {
+    text-decoration: underline;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state h2 {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+
+.step-item-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-item-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.step-item-desc {
+    margin: 4px 0 0 0;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+.steps-more-dots {
+    padding-left: 0;
+    font-weight: bold;
+    color: #7f8c8d;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    margin-top: 4px;
+    font-size: 1.1rem;
+}
+
+.no-steps {
+    font-size: 0.85rem;
+    color: #95a5a6;
+    font-style: italic;
+    margin: 0;
+}
+
+.goal-footer {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.goal-date {
+    color: #95a5a6;
+}
+
+.btn-action-edit {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-action-edit:hover {
+    text-decoration: underline;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state h2 {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+
+
+.step-item-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.step-actions-inline {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.step-item:hover .step-actions-inline {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-step-action {
+    background: transparent;
+    border: none;
+    color: #7f8c8d;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-step-action:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-step-complete:hover {
+    color: #2ecc71;
+}
+
+.btn-step-edit:hover {
+    color: #2980b9;
+}
+
+/* Стили для зачеркивания текста при выполнении */
+.step-item.completed .step-item-title {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.step-item.completed .btn-step-complete {
+    color: #2ecc71;
+}
+
+
+
+.progress-percentage-text {
+    display: block;
+    text-align: right;
+}
+
+.numeric-goal-section {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+min-height: 80px;
+text-align: center;
+}
+
+.numeric-value {
+font-size: 1.4rem;
+font-weight: bold;
+color: #259;
+}
+
+.numeric-value span {
+color: #888;
+font-size: 1rem;
+font-weight: normal;
+}
+
+.numeric-label {
+margin-top: 4px;
+margin-bottom: 0;
+font-size: .8rem;
+color: #777;
+}
+/*---------------------------------------------------------------------------------------------*/
+.steps-more-dots {
+    padding-left: 10px;
+    font-weight: bold;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.btn-primary {
+    display: inline-block;
+    width: auto;
+    padding: 12px 30px;
+}

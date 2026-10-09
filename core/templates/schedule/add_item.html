@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule/css/add_item.css' %}">
+{% endblock %}
+
+
+{% block title %}Добавление предмета{% endblock %}
+
+{% block content %}
+<section class="task-form">
+
+    <h2>Заполните информацию</h2>
+
+        {% if form_errors %}
+        <div class="errors">
+            <ul>
+                {% for field, errors in form_errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'add-item' %}">
+            {% csrf_token %}
+            <label for="name">Название предмета:</label>
+            <input type="text" id="name" name="name" required>
+
+            <button type="submit">Добавить задание</button>
+        </form>
+
+</section>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'report/css/report.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="report-page">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-target="summary-section">
+        <i class="bi bi-graph-up-arrow"></i> Summary
+    </button>
+    <button class="tab" data-target="detail-section">
+        <i class="bi bi-list-columns-reverse"></i> Detail
+    </button>
+  </div>
+
+  <!-- БЛОК SUMMARY (был не обернут) -->
+  <div id="summary-section" class="tab-content">
+      <h2 class="section-title">Activity Summary</h2>
+
+      <div class="summary-cards">
+        <div class="card">
+          <div class="card-icon"><i class="bi bi-stopwatch text-danger"></i></div>
+          <div class="card-value" id="hours">0</div>
+          <div class="card-label">hours focused</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="bi bi-calendar-check text-primary"></i></div>
+          <div class="card-value" id="days">0</div>
+          <div class="card-label">days accessed</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon"><i class="bi bi-fire text-warning"></i></div>
+          <div class="card-value" id="streak">0</div>
+          <div class="card-label">day streak</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Focus Hours</h2>
+
+      <div class="chart-controls">
+        <div class="period">
+          <button class="period-btn active" data-period="week">Week</button>
+          <button class="period-btn" data-period="month">Month</button>
+          <button class="period-btn" data-period="year">Year</button>
+        </div>
+
+        <div class="week-switch">
+          <button id="prevWeek"><i class="bi bi-chevron-left"></i></button>
+          <span class="fw-bold">This Week</span>
+          <button id="nextWeek"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <canvas id="reportChart"></canvas>
+      </div>
+  </div>
+
+  <!-- БЛОК DETAIL (уже был) -->
+  <div id="detail-section" class="tab-content d-none">
+      <div class="detail-header d-flex justify-content-between align-items-center">
+          <h2 class="section-title">Focus Time Detail</h2>
+          <div class="detail-actions">
+               <button class="btn-outline-specter"><i class="bi bi-clock"></i> Insert</button>
+               <button class="btn-outline-specter"><i class="bi bi-download"></i> Download</button>
+          </div>
+      </div>
+
+      <div class="table-responsive">
+          <table class="table table-dark-custom">
+              <thead>
+                  <tr>
+                      <th>DATE</th>
+                      <th>PROJECT / TASK</th>
+                      <th>MINUTES</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody id="detail-table-body">
+                  <!-- Данные из JS -->
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'report/js/report.js' %}"></script>
+{% endblock %}

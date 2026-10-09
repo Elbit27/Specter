@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Specter — Интеллектуальный ассистент продуктивности{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/frontpage.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- 1. ГЛАВНЫЙ ЭКРАН (HERO) -->
+<section class="hero-wrapper">
+    <div class="glow-element"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-7">
+                <div class="hero-badge">
+                    <span class="pulsating-dot"></span> Powered by Specter AI
+                </div>
+                <h2 class="display-5 fw-bold mb-4">
+                    Умное управление <br>
+                    <span class="text-gradient">твоим временем</span>
+                </h2>
+                <p class="lead text-secondary mb-5 pe-lg-5">
+                    Specter — это персональный ассистент, который объединяет академические данные, аналитику успеваемости и инструменты тайм-менеджмента в единую экосистему.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'schedule' %}" class="btn-specter primary-glow">Моё расписание</a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="btn-specter primary-glow">Начать бесплатно</a>
+                        <a href="#features" class="btn-specter secondary-outline">Как это работает</a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Декоративный элемент справа (опционально) -->
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-card-stack">
+                    <div class="glass-card card-1">
+                        <i class="bi bi-cpu text-danger"></i>
+                        <span>Specter AI Analysis</span>
+                    </div>
+                    <div class="glass-card card-2">
+                        <div class="mini-chart">
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 60%"></div>
+                        </div>
+                        <span>Efficiency +32%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Остальные секции (stats, features, cta) остаются такими же -->
+{% endblock %}
