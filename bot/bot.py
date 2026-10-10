@@ -1,5 +1,7 @@
 import os, django, telebot
 from django.conf import settings
+import threading
+
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
@@ -18,6 +20,18 @@ register_poma_handlers(bot)
 register_todo_handlers(bot)
 
 
+
+def start_bot_polling():
+    print("Бот успешно запущен в фоновом потоке...")
+    try:
+        bot.infinity_polling(none_stop=True)
+    except Exception as e:
+        print(f"Ошибка в работе бота: {e}")
+
+# Запускаем бота в фоновом потоке, чтобы он не блокировал Gunicorn и деплой Render
+bot_thread = threading.Thread(target=start_bot_polling, daemon=True)
+bot_thread.start()
+
 if __name__ == '__main__':
-    print("Бот запущен...")
-    bot.polling(none_stop=True)
+    print("Бот запущен вручную через __main__...")
+    bot_thread.join()
