@@ -90,18 +90,24 @@
     </div>
     <div class="offcanvas-body d-flex flex-column gap-2">
         {% if request.user.is_authenticated %}
-
             <a href="{% url 'schedule' %}" class="side-item card-action">
                 <i class="bi bi-table"></i> <span>Schedule</span>
             </a>
 
             <a href="{% url 'report_page' %}" class="side-item card-action">
-                <i class="bi bi-report"></i> <span>Report</span>
+                <i class="bi bi-bar-chart-line"></i> <span>Report</span>
             </a>
 
+            <a href="{% url 'goal_page' %}" class="side-item card-action">
+                <i class="bi bi-card-checklist"></i> <span>Goal</span>
+            </a>
 
-            <a href="/accounts/logout/" class="side-item card-logout mt-auto">
-                <i class="bi bi-box-arrow-right"></i> <span>Выход</span>
+            <a href="{% url 'todo' %}" class="side-item card-action">
+                <i class="bi bi-list-task"></i> <span>Todo</span>
+            </a>
+
+            <a href="/accounts/logout/" class="side-item card-logout">
+                <i class="bi bi-box-arrow-right"></i> <span>Выйти</span>
             </a>
         {% else %}
             <a class="btn btn-primary btn-auth w-100" href="/accounts/login/">Вход</a>
