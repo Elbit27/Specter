@@ -97,9 +97,41 @@
 }
 
 /* Адаптивность для мобилок */
-@media (max-width: 480px) {
+@media (max-width: 575.98px) {
     .task-form {
-        margin: 20px;
-        padding: 20px;
+        margin: 20px 15px;
+        padding: 24px 16px;
+        border-radius: 10px;
+    }
+
+    .task-form h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .task-form input[type="text"],
+    .task-form button {
+        padding: 14px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .errors {
+        padding: 10px;
+        margin-bottom: 16px;
+    }
+
+    .errors li {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .task-form {
+        margin: 10px 8px;
+        padding: 18px 12px;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
     }
 }

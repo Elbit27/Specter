@@ -166,3 +166,80 @@ body {
     background: var(--border-color);
     border-radius: 10px;
 }
+
+/* ==========================================================================
+   МЕДИА-ЗАПРОСЫ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (АДАПТИВНОСТЬ)
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+    .navbar-custom {
+        padding: 10px 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .user-side-panel {
+        padding: 12px !important;
+        margin-bottom: 20px;
+    }
+
+    .side-item {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn-auth {
+        padding: 6px 18px;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 767.98px) {
+    body {
+        font-size: 14px;
+    }
+
+    .dropdown-menu {
+        width: 100% !important;
+        max-width: 290px;
+        position: absolute !important;
+    }
+
+    .notification-bell-icon {
+        font-size: 1.15rem;
+    }
+
+    .avatar-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    #userMenuOffcanvas {
+        width: 85% !important;
+        max-width: 320px;
+    }
+
+    .user-side-panel {
+        border-radius: 0;
+    }
+
+    .card-logout {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 375px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .side-item {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}

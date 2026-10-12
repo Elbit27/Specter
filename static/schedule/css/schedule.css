@@ -122,3 +122,69 @@ h1 {
     color: var(--text-main);
     margin-bottom: 20px;
 }
+
+
+@media (max-width: 991.98px) {
+    .schedule-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -15px 20px -15px;
+        padding: 0 15px;
+    }
+
+    .schedule-table {
+        min-width: 750px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    h1.text-xl {
+        font-size: 1.25rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    .add-subject-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 12px;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 8px 6px !important;
+        font-size: 0.9rem;
+    }
+
+    .day-input {
+        padding: 6px 4px !important;
+        font-size: 0.9rem !important;
+        height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-table {
+        min-width: 600px;
+    }
+
+    .subject-col {
+        min-width: 120px;
+        position: sticky;
+        left: 0;
+        background: var(--card-graphite, #2d323b);
+        z-index: 2;
+    }
+
+    thead th.subject-col {
+        background: var(--nav-graphite, #1c2128);
+        z-index: 3;
+    }
+
+    .total-row .subject-col {
+        background: var(--nav-graphite, #1c2128);
+    }
+}

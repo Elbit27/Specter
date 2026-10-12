@@ -99,10 +99,21 @@ Sep 29 - Oct 4
 
 ---
 
+## Oct 12
+
+15. Small changes / Adding details
+    15.1. Media extend in page styles
+    15.2. Plural poma_create
+    15.3. Make todo_t by text
+
+---
+
+
 
 
 
 ## TODO
 
 Implement async and sync code for Telegram Bot
-Find a free deployment platform
+
+

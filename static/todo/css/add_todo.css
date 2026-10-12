@@ -90,3 +90,55 @@
 .errors li {
     margin: 4px 0;
 }
+
+@media (max-width: 767.98px) {
+    .todo-form {
+        margin: 30px auto;
+        padding: 25px 20px;
+        border-radius: 12px;
+    }
+
+    .todo-form h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .todo-form label {
+        font-size: 14px;
+    }
+
+    .todo-form input {
+        padding: 10px 12px;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .todo-form button {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .todo-form {
+        margin: 15px 10px;
+        padding: 20px 15px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .todo-form h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .todo-form input,
+    .todo-form button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .errors {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}

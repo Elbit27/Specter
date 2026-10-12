@@ -429,3 +429,84 @@ color: #777;
     width: auto;
     padding: 12px 30px;
 }
+
+@media (max-width: 991.98px) {
+    .list-container {
+        padding: 15px 10px;
+    }
+
+    .goals-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .list-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .list-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-add-goal {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .goal-card:hover {
+        transform: none;
+    }
+
+    .step-actions-inline {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .goals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .goal-body {
+        padding: 16px;
+    }
+
+    .goal-title {
+        font-size: 1.2rem;
+    }
+
+    .goal-desc {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .step-item {
+        padding: 8px;
+    }
+
+    .step-item-title {
+        font-size: 0.85rem;
+    }
+
+    .btn-step-action {
+        padding: 6px;
+    }
+
+    .goal-footer,
+    .detail-goal-footer {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+
+    .empty-state {
+        padding: 40px 16px;
+    }
+}

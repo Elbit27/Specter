@@ -175,3 +175,101 @@
     70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(155, 17, 30, 0); }
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 17, 30, 0); }
 }
+
+
+
+@media (max-width: 991.98px) {
+    .min-vh-75 {
+        min-height: auto;
+        padding: 50px 0;
+    }
+
+    .hero-card-stack {
+        height: 320px;
+        margin-top: 40px;
+    }
+
+    .card-1 {
+        right: 5%;
+        top: 15%;
+    }
+
+    .card-2 {
+        right: 15%;
+        top: 45%;
+    }
+
+    .stats-bar {
+        padding: 30px 0;
+    }
+
+    .feature-box {
+        padding: 30px;
+    }
+
+    .cta-inner {
+        padding: 50px 30px;
+        border-radius: 24px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-badge {
+        font-size: 13px;
+        padding: 6px 12px;
+        margin-bottom: 16px;
+    }
+
+    .btn-specter {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 12px;
+        padding: 12px 20px;
+    }
+
+    .hero-card-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+        margin-top: 30px;
+    }
+
+    .glass-card {
+        position: static;
+        width: 100% !important;
+    }
+
+    .stats-bar .row > div {
+        margin-bottom: 20px;
+    }
+
+    .stats-bar .row > div:last-child {
+        margin-bottom: 0;
+    }
+
+    .feature-box {
+        padding: 24px;
+    }
+
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .cta-inner {
+        padding: 40px 20px;
+        border-radius: 16px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .glow-element {
+        width: 200px;
+        height: 200px;
+    }
+}

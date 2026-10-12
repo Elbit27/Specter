@@ -191,3 +191,96 @@
     margin: 0;
     font-size: 13px;
 }
+
+@media (max-width: 575.98px) {
+    .login-wrapper {
+        padding: 15px 10px;
+        align-items: flex-start;
+    }
+
+    .fb-form-container {
+        max-width: 100%;
+    }
+
+    .brand-section {
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    .brand-logo {
+        font-size: 1.75rem;
+    }
+
+    .fb-card {
+        padding: 24px 16px;
+        border-radius: 16px;
+        border: none;
+        background: var(--nav-graphite);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .fb-card h2 {
+        font-size: 1.35rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    .form-divider {
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 12px;
+    }
+
+    .input-group input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .toggle-password-btn {
+        right: 10px;
+        padding: 4px;
+    }
+
+    .policy-text {
+        font-size: 0.7rem;
+        margin: 15px 0;
+    }
+
+    .create-account-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .login-link {
+        margin-top: 20px;
+    }
+
+    .login-link a {
+        font-size: 0.85rem;
+        display: inline-block;
+        padding: 5px 0;
+    }
+
+    .error-summary {
+        padding: 10px !important;
+        border-radius: 8px !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .fb-card {
+        padding: 20px 12px;
+    }
+
+    .brand-logo {
+        font-size: 1.5rem;
+    }
+}
