@@ -36,18 +36,35 @@ def register_todo_handlers(bot):
     @bot.message_handler(commands=['todo_add'])
     def todo_add(message, telegram_profile):
         user = telegram_profile.user
-        todo_title = message.text.replace('/todo_add', '', 1).strip()
+        lines = message.text.splitlines()
 
+        if not lines:
+            bot.reply_to(message, "❌ Напишите хотя бы одну задачу.")
+            return
 
-        Todo.objects.create(
-            user=user,
-            title=todo_title,
-        )
+        lines[0] = lines[0].replace('/todo_add', '', 1).strip()
 
-        bot.reply_to(
-            message,
-            f"✅ Todo добавлен "
-        )
+        count = 0
+
+        for line in lines:
+            todo_title = line.strip()
+            if todo_title:
+                Todo.objects.create(
+                    user=user,
+                    title=todo_title,
+                )
+                count += 1
+
+        if count > 0:
+            bot.reply_to(
+                message,
+                f"✅ Успешно добавлено задач: {count} шт."
+            )
+        else:
+            bot.reply_to(
+                message,
+                "❌ Не удалось распознать задачи."
+            )
 
     @bot.message_handler(commands=['done', 'delete'])
     def todo_update(message):

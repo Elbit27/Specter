@@ -99,12 +99,12 @@ Sep 29 - Oct 4
 
 ---
 
-## Oct 12
+## Oct 12-14
 
 15. Small changes / Adding details
-    15.1. Media extend in page styles
-    15.2. Plural poma_create
-    15.3. Make todo_t by text
+    15.1. Media extend in page styles ./ 12 - 20:34
+    15.2. Plural poma_create ./ 13 - 19:42
+    15.3. Make todo_t by text ./ 14 - 15:21
 
 ---
 

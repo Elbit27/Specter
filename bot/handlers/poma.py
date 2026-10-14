@@ -7,15 +7,28 @@ def register_poma_handlers(bot):
 
     @bot.message_handler(commands=['poma'])
     def add_poma(message, telegram_profile):
-        project_name = message.text.replace('/poma', '', 1).strip()
+        parts = message.text.split(maxsplit=2)
 
-        if not project_name:
+        if len(parts) < 2:
             bot.reply_to(
                 message,
-                "Укажите название проекта.\n"
-                "Например: /poma Project"
+                "❌ Укажите название проекта.\n"
+                "Например: `/poma Project` или `/poma Project 3`"
             )
             return
+
+        project_name = parts[1].strip()
+        count = 1
+
+        if len(parts) == 3:
+            try:
+                count = int(parts[2].strip())
+                if count <= 0:
+                    raise ValueError
+            except ValueError:
+                bot.reply_to(message, "❌ Количество должно быть целым числом больше нуля.")
+                return
+
 
         user = telegram_profile.user
 
@@ -27,15 +40,15 @@ def register_poma_handlers(bot):
         if item:
             day_name = datetime.now().strftime('%A')
 
-            Poma.objects.create(
-                item=item,
-                day=day_name
-            )
+            for _ in range(count):
+                Poma.objects.create(
+                    item=item,
+                    day=day_name
+                )
 
             bot.reply_to(
                 message,
-                f"✅ Poma добавлена в расписание "
-                f"'{item.name}'!"
+                f"✅ Poma {item.name} добавлена в расписание: {count} шт.!"
             )
         else:
             bot.reply_to(
