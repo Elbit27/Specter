@@ -22,6 +22,9 @@ class Goal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    is_archived = models.BooleanField(default=False)
+
+
     @property
     def uncompleted_steps(self):
         return [step for step in self.steps.all() if not step.completed]
@@ -29,6 +32,25 @@ class Goal(models.Model):
     @property
     def completed_steps(self):
         return [step for step in self.steps.all() if step.completed]
+
+    @property
+    def is_complete(self):
+        if self.goal_type == 'numeric':
+            return self.current_value >= self.target_value
+        return len(self.uncompleted_steps) == 0 and self.steps.exists()
+
+    def save(self, *args, **kwargs):
+        if self.goal_type == 'numeric':
+            is_done = self.current_value >= self.target_value
+        elif self.goal_type == 'steps':
+            is_done = len(self.uncompleted_steps) == 0 and self.steps.exists()
+        else:
+            is_done = False
+
+        if is_done:
+            self.is_archived = True
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

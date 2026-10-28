@@ -109,11 +109,18 @@ Sep 29 - Oct 4
 ---
 
 
+## Oct 28
 
+16. Archive
+    16.1. Archive goal cards ./ 16:11
+
+profile page
+monthly reports
 
 
 ## TODO
-
 Implement async and sync code for Telegram Bot
 
+add AI into Specter Bot
+Finances bot's abilities
 

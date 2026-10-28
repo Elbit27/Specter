@@ -17,8 +17,8 @@ class GoalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goal
         fields = [
-            'id', 'title', 'description', 'card_color', 'prize',
-            'created_at', 'updated_at', 'goal_type', 'current_value', 'target_value', 'steps'
+            'id', 'title', 'description', 'card_color', 'prize', 'created_at',
+            'updated_at', 'goal_type', 'current_value', 'target_value', 'steps', 'is_archived'
         ]
 
     def create(self, validated_data):
@@ -32,7 +32,9 @@ class GoalSerializer(serializers.ModelSerializer):
             prize=validated_data.get('prize', ''),
             goal_type=validated_data.get('goal_type', 'steps'),
             current_value=validated_data.get('current_value', 0),
-            target_value=validated_data.get('target_value', 100)
+            target_value=validated_data.get('target_value', 100),
+            is_archived = validated_data.get('is_archived', False)
+
         )
 
         if goal.goal_type == 'steps':
@@ -43,6 +45,12 @@ class GoalSerializer(serializers.ModelSerializer):
                     description=step_data.get('description', ''),
                     completed=step_data.get('completed', False)
                 )
+
+        if goal.goal_type == 'numeric':
+            goal.is_archived = goal.current_value >= goal.target_value
+        else:
+            goal.is_archived = not goal.steps.filter(completed=False).exists() and goal.steps.exists()
+
         return goal
 
     def update(self, instance, validated_data):
@@ -55,6 +63,8 @@ class GoalSerializer(serializers.ModelSerializer):
         instance.goal_type = validated_data.get('goal_type', instance.goal_type)
         instance.current_value = validated_data.get('current_value', instance.current_value)
         instance.target_value = validated_data.get('target_value', instance.target_value)
+        instance.is_archived = validated_data.get('is_archived', instance.is_archived)
+
         instance.save()
 
         if instance.goal_type == 'numeric':
