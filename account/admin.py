@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import TelegramProfile
 
-# Register your models here.
+@admin.register(TelegramProfile)
+class TelegramProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'telegram_username', 'telegram_chat_id')
+    search_fields = ('user__username', 'telegram_username')

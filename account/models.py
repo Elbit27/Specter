@@ -23,3 +23,18 @@ class EmailVerificationCode(models.Model):
         cls.objects.update_or_create(user=user, defaults={'code': code, 'created_at': timezone.now()})
         return code
 
+
+
+class TelegramProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='telegram_profile')
+    telegram_username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+    telegram_chat_id = models.BigIntegerField(unique=True, blank=True, null=True)
+
+    class Meta:
+        app_label = 'account'
+        db_table = 'users_telegramprofile'
+        verbose_name = 'Telegram profile'
+        verbose_name_plural = 'Telegram profiles'
+
+    def __str__(self):
+        return f"Профиль {self.user.username} (TG-ник: {self.telegram_username})"

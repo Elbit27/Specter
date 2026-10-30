@@ -111,10 +111,17 @@ Sep 29 - Oct 4
 
 ## Oct 28
 
-16. Archive
-    16.1. Archive goal cards ./ 16:11
+16. Rehabilitation
+    16.1. Archive
+        16.1.1 goal cards ./ 16:11   28
+        16.1.2  schedule items
+    16.2. profile page
+        16.2.1. tg_profile from schedule models to auth_user ./ 19:33   30
+        16.2.2. profile photo
+        16.2.3. change username, tg_profile and email address
+        16.2.4. styles
 
-profile page
+
 monthly reports
 
 
@@ -123,4 +130,4 @@ Implement async and sync code for Telegram Bot
 
 add AI into Specter Bot
 Finances bot's abilities
-
+pomodoro timer
