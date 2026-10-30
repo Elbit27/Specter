@@ -112,9 +112,9 @@ Sep 29 - Oct 4
 ## Oct 28
 
 16. Rehabilitation
-    16.1. Archive
+    16.1. Archive ./
         16.1.1 goal cards ./ 16:11   28
-        16.1.2  schedule items
+        16.1.2  schedule items ./ 20:19   30
     16.2. profile page
         16.2.1. tg_profile from schedule models to auth_user ./ 19:33   30
         16.2.2. profile photo

@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/api/v1/accounts/login/')
 def schedule_view(request):
-    items = Item.objects.all()
+    items = Item.objects.filter(is_archived=False).order_by('-created_at')
     days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
 
 
