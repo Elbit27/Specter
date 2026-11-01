@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}Подтверждение Email - Unify{% endblock %}
+{% block title %}Подтверждение Email - Specter{% endblock %}
 
 {% block css %}
 <style>
@@ -118,7 +118,7 @@
 {% block content %}
 <div class="login-wrapper">
     <div class="login-card verification-card">
-        <h1 class="brand-logo">unify<span>academy</span></h1>
+        <h1 class="brand-logo">Specter</h1>
 
         <h2 class="verification-title">Проверьте почту</h2>
         <p class="subtitle">Мы отправили 6-значный код. Введите его ниже, чтобы подтвердить свой аккаунт.</p>
@@ -146,4 +146,81 @@
         </div>
     </div>
 </div>
+
+{% block js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const resendLink = document.getElementById('resend-code');
+    let isCooldown = false;
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    resendLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (isCooldown) return;
+
+        isCooldown = true;
+        resendLink.style.pointerEvents = 'none';
+        resendLink.style.color = '#888';
+        resendLink.textContent = 'Отправка...';
+
+        try {
+            // URL 'account_resend_code' должен быть прописан в urls.py
+            const response = await fetch("{% url 'account_resend_code' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                let seconds = 60;
+                const interval = setInterval(() => {
+                    seconds--;
+                    if (seconds > 0) {
+                        resendLink.textContent = `Повторить через ${seconds}с`;
+                    } else {
+                        clearInterval(interval);
+                        isCooldown = false;
+                        resendLink.style.pointerEvents = 'auto';
+                        resendLink.style.color = '#0866ff';
+                        resendLink.textContent = 'Отправить еще раз';
+                    }
+                }, 1000);
+            } else {
+                alert('Ошибка при повторной отправке кода.');
+                resetLink();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ошибка сети.');
+            resetLink();
+        }
+    });
+
+    function resetLink() {
+        isCooldown = false;
+        resendLink.style.pointerEvents = 'auto';
+        resendLink.style.color = '#0866ff';
+        resendLink.textContent = 'Отправить еще раз';
+    }
+});
+</script>
+{% endblock %}
+
+
 {% endblock %}

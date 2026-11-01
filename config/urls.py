@@ -2,13 +2,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from account.views import verify_code_view, complete_profile
+from account.views import verify_code_view, resend_code_view
 
 
 account_patterns = [
     path('verify-code/', verify_code_view, name='account_verify_code'),
-    path('complete-profile/', complete_profile, name='complete_profile'),
-
+    path('resend-code/', resend_code_view, name='account_resend_code'),
     path('', include('allauth.urls')),
 ]
 

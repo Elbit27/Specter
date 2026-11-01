@@ -171,3 +171,23 @@ ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+# Настройки подтверждения почты
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory" # "mandatory" — вход невозможен без подтверждения
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True    # Переход по ссылке сразу подтверждает почту
+LOGIN_REDIRECT_URL = '/'               # Куда кидать после входа
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = f"Unify Academy <{config('EMAIL_HOST_USER')}>"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_ADAPTER = 'account.adapters.CustomAccountAdapter'
+
