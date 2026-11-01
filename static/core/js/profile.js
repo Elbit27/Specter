@@ -1,119 +1,123 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const profileForm = document.getElementById('profileForm');
     const avatarInput = document.getElementById('id_avatar');
-    const avatarImg = document.querySelector('.profile-avatar');
-    const avatarPlaceholder = document.querySelector('.avatar-placeholder');
-    const profileForm = document.querySelector('.profile-form');
-    const saveBtn = document.querySelector('.btn-save');
+    const cardAvatar = document.getElementById('cardAvatar');
+    const formMessage = document.getElementById('formMessage');
 
-    // 1. ДИНАМИЧЕСКОЕ ПРЕВЬЮ АВАТАРА
-    if (avatarInput) {
+    const cardUsername = document.getElementById('cardUsername');
+    const cardEmail = document.getElementById('cardEmail');
+    const cardTg = document.getElementById('cardTg');
+
+    let isAvatarChanged = false;
+
+    if (!profileForm) return;
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    if (avatarInput && cardAvatar) {
         avatarInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
-                // Проверяем тип файла
-                if (!file.type.startsWith('image/')) {
-                    showToast('Можно загружать только изображения', 'error');
+                if (file.size > 2 * 1024 * 1024) {
+                    showMessage('Файл слишком большой. Максимум 2 МБ.', 'error');
                     this.value = '';
+                    isAvatarChanged = false;
                     return;
                 }
 
+                isAvatarChanged = true;
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    if (avatarImg) {
-                        // Если тег img уже существует, меняем src
-                        avatarImg.src = e.target.result;
-                    } else if (avatarPlaceholder) {
-                        // Если был плейсхолдер с буквой, заменяем его на полноценный img
-                        const newImg = document.createElement('img');
-                        newImg.src = e.target.result;
-                        newImg.alt = 'Аватар';
-                        newImg.classList.add('profile-avatar');
-                        avatarPlaceholder.parentNode.replaceChild(newImg, avatarPlaceholder);
-                    }
+                    cardAvatar.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
     }
 
-    // 2. АСИНХРОННАЯ ОТПРАВКА ФОРМЫ (AJAX)
-    if (profileForm) {
-        profileForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Блокируем стандартную перезагрузку страницы
+    profileForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            // Клиентская валидация Email
-            const emailInput = document.getElementById('id_email');
-            if (emailInput && !validateEmail(emailInput.value)) {
-                showToast('Введите корректный Email адрес', 'error');
-                return;
-            }
+        const formData = new FormData(profileForm);
 
-            // Визуальный лоадер на кнопке
-            const originalBtnText = saveBtn.textContent;
-            saveBtn.textContent = 'Сохранение...';
-            saveBtn.disabled = true;
-
-            // Собираем данные (включая файлы)
-            const formData = new FormData(profileForm);
-
-            try {
-                const response = await fetch(window.location.href, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        // Django требует этот заголовок для AJAX POST-запросов
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-
-                if (response.ok) {
-                    showToast('Профиль успешно обновлен!', 'success');
-                    // Если в шапке сайта тоже есть аватарка/имя, обновляем их
-                    const topNavUsername = document.querySelector('.nav-username');
-                    if (topNavUsername && formData.get('username')) {
-                        topNavUsername.textContent = formData.get('username');
-                    }
-                } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    showToast(errorData.error || 'Ошибка при сохранении данных', 'error');
-                }
-            } catch (error) {
-                console.error('Error saving profile:', error);
-                showToast('Не удалось связаться с сервером', 'error');
-            } finally {
-                // Возвращаем кнопку в исходное состояние
-                saveBtn.textContent = originalBtnText;
-                saveBtn.disabled = false;
-            }
-        });
-    }
-
-    // Вспомогательная функция валидации email
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    // Простая функция кастомных уведомлений (Toast)
-    function showToast(message, type = 'success') {
-        // Проверяем, есть ли уже контейнер для тостов, если нет — создаем
-        let container = document.querySelector('.toast-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.classList.add('toast-container');
-            document.body.appendChild(container);
+        if (!isAvatarChanged) {
+            formData.delete('avatar');
         }
 
-        const toast = document.createElement('div');
-        toast.classList.add('toast-item', type);
-        toast.textContent = message;
+        showMessage('Сохранение...', 'info');
 
-        container.appendChild(toast);
+        try {
+            const response = await fetch('/api/tg-profile/current/', {
+                method: 'PATCH',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: formData
+            });
 
-        // Плавное появление и исчезновение
-        setTimeout(() => toast.classList.add('show'), 10);
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
+            const data = await response.json();
+
+            if (response.ok) {
+                showMessage('Изменения успешно сохранены!', 'success');
+
+                if (data.username && cardUsername) cardUsername.textContent = data.username;
+                if (data.email && cardEmail) cardEmail.textContent = data.email;
+
+                if (cardTg) {
+                    if (data.tg_profile) {
+                        cardTg.textContent = `@${data.tg_profile}`;
+                    } else {
+                        cardTg.textContent = 'Не указан';
+                    }
+                }
+
+                if (data.avatar && cardAvatar) {
+                    cardAvatar.src = data.avatar;
+                }
+            } else {
+                let errorMsg = 'Ошибка при сохранении: ';
+                if (typeof data === 'object') {
+                    errorMsg += Object.entries(data)
+                        .map(([key, val]) => `${key}: ${Array.isArray(val) ? val.join(', ') : val}`)
+                        .join('; ');
+                } else {
+                    errorMsg += 'Что-то пошло не так.';
+                }
+                showMessage(errorMsg, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showMessage('Ошибка сети. Не удалось связаться с сервером.', 'error');
+        }
+    });
+
+    function showMessage(text, type) {
+        if (!formMessage) return;
+
+        formMessage.textContent = text;
+        formMessage.className = 'form-message';
+
+        if (type === 'success') {
+            formMessage.classList.add('msg-success');
+            formMessage.style.color = '#2ec4b6';
+        } else if (type === 'error') {
+            formMessage.classList.add('msg-error');
+            formMessage.style.color = '#e71d36';
+        } else {
+            formMessage.style.color = '#888';
+        }
     }
 });

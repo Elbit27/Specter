@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import IsAuthenticated
+
 from account.forms import OnboardingForm
 from django.contrib import messages
-from .models import EmailVerificationCode
+
 
 
 @login_required
@@ -53,3 +55,4 @@ def verify_code_view(request):
             messages.error(request, "Неверный код подтверждения.")
 
     return render(request, 'account/email_confirm.html')
+

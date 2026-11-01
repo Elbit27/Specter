@@ -9,6 +9,6 @@ django-filter
 gunicorn
 telebot
 django-allauth
-jwt
+PyJWT
 pytest-django
 pytelegrambotapi

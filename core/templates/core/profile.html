@@ -1,80 +1,87 @@
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block title %}Specter — Профиль{% endblock %}
+{% block title %}Specter — Профиль {{ user.username }}{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'core/css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="profile-container">
+<div class="profile-page-container">
 
-    <!-- Левая колонка: Карточка и Статистика -->
-    <aside class="profile-sidebar">
-        <div class="profile-card">
+    <!-- Левая колонка: Публичная карточка в стиле соцсети -->
+    <div class="profile-card">
+        <div class="profile-cover"></div>
+        <div class="profile-card-body">
             <div class="avatar-container">
-                {% if user.avatar %}
-                    <img src="{{ user.avatar.url }}" alt="Аватар" class="profile-avatar">
+                {% if user.profile.avatar %}
+                    <img id="cardAvatar" src="{{ user.profile.avatar.url }}" alt="Аватар" class="main-avatar">
                 {% else %}
-                    <div class="avatar-placeholder">{{ user.username|slice:":1"|upper }}</div>
+                    <img id="cardAvatar" src="{% static 'core/img/default-avatar.png' %}" alt="Дефолтный аватар" class="main-avatar">
                 {% endif %}
             </div>
-            <h2 class="profile-username">{{ user.username }}</h2>
-            <p class="profile-email">{{ user.email }}</p>
-            <p class="profile-joined">В команде с: {{ user.date_joined|date:"d.m.Y" }}</p>
-        </div>
 
-        <div class="stats-card">
-            <h3>Ваша продуктивность</h3>
-            <div class="stat-item">
-                <span class="stat-label">Всего целей:</span>
-                <span class="stat-value">{{ total_goals|default:"0" }}</span>
+            <h1 class="profile-name" id="cardUsername">{{ user.username }}</h1>
+            <p class="profile-status">Участник</p>
+
+            <div class="profile-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Email</span>
+                    <span class="meta-value" id="cardEmail">{{ user.email }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Telegram</span>
+                    <span class="meta-value" id="cardTg">{% if telegram_username %}@{{ telegram_username }}{% else %}Не указан{% endif %}</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">В архиве:</span>
-                <span class="stat-value archived">{{ archived_goals|default:"0" }}</span>
+        </div>
+    </div>
+
+    <!-- Правая колонка: Управление/Редактирование -->
+    <div class="settings-box">
+        <div class="settings-header">
+            <h2>Настройки профиля</h2>
+            <p>Обновите свои личные данные</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="profile-form" id="profileForm">
+            {% csrf_token %}
+
+            <div class="form-group-avatar">
+                <label for="id_avatar" class="avatar-edit-trigger">
+                    <span>Изменить фото профиля</span>
+                </label>
+                <input type="file" id="id_avatar" name="avatar" accept="image/*" class="avatar-input-hidden">
+                <span class="file-info-text">PNG, JPG до 2 МБ</span>
             </div>
-        </div>
-    </aside>
 
-    <!-- Правая колонка: Формы настроек -->
-    <main class="profile-main">
-        <div class="settings-box">
-            <h2>Личные данные</h2>
-            <form method="post" enctype="multipart/form-data" class="profile-form">
-                {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Имя пользователя</label>
+                <input type="text" id="id_username" name="username" value="{{ user.username }}" class="form-input" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="id_username">Имя пользователя</label>
-                    <input type="text" id="id_username" name="username" value="{{ user.username }}" class="form-input">
+            <div class="form-group">
+                <label for="id_email">Электронная почта</label>
+                <input type="email" id="id_email" name="email" value="{{ user.email }}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_tg_profile">Telegram Nickname</label>
+                <div class="tg-input-wrapper">
+                    <span class="tg-prefix">@</span>
+                    <input type="text" id="id_tg_profile" name="telegram_username" value="{{ telegram_username|default:'' }}" class="form-input tg-input" placeholder="username">
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="id_email">Email</label>
-                    <input type="email" id="id_email" name="email" value="{{ user.email }}" class="form-input">
-                </div>
+            <button type="submit" class="btn-save">Сохранить изменения</button>
+        </form>
 
-                <div class="form-group">
-                    <label for="id_tg_profile">Telegram profile</label>
-                    <input type="text" id="id_tg_profile" name="tg_profile" value="{{ telegram_username|default:'' }}" class="form-input">
-                </div>
-
-                <button type="submit" class="btn-save">Сохранить изменения</button>
-            </form>
-        </div>
-
-        <div class="settings-box security-box">
-            <h2>Безопасность</h2>
-            <p class="box-description">Хотите обновить пароль? Используйте стандартную процедуру смены.</p>
-            <a href="#" class="btn-secondary">Изменить пароль</a>
-        </div>
-    </main>
+        <div id="formMessage" class="form-message"></div>
+    </div>
 
 </div>
 
-<script src="/static/goal/js/GoalListDetail.js"></script>
+<script src="{% static 'core/js/profile.js' %}"></script>
 {% endblock %}
-
-
 
