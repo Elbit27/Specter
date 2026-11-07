@@ -118,7 +118,7 @@ Sep 29 - Oct 4
     16.2. profile page
         16.2.1. tg_profile from schedule models to auth_user ./ 19:33   30
         16.2.2. profile photo
-        16.2.3. change username
+        16.2.3. change username ./ 14:13   7
         16.2.4. change tg_profile ./ 08:43   1
         16.2.5. change email address
         16.2.6. styles

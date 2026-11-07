@@ -1,5 +1,5 @@
 from telebot.handler_backends import BaseMiddleware
-from schedule.models import TelegramProfile
+from account.models import TelegramProfile
 
 
 class TelegramProfileMiddleware(BaseMiddleware):

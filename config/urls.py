@@ -2,12 +2,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from account.views import verify_code_view, resend_code_view
+from account.views import verify_code_view, resend_code_view, change_username
 
 
 account_patterns = [
     path('verify-code/', verify_code_view, name='account_verify_code'),
     path('resend-code/', resend_code_view, name='account_resend_code'),
+    path('change-username/', change_username, name='change-username'),
     path('', include('allauth.urls')),
 ]
 

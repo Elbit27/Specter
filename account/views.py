@@ -7,9 +7,14 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import login
 from allauth.account.models import EmailAddress
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
 
 from account.forms import OnboardingForm
 from .models import EmailVerificationCode
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -99,3 +104,38 @@ def resend_code_view(request):
 
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def change_username(request):
+    user = request.user
+
+    new_username = request.data.get('username')
+
+    if not new_username:
+        return Response(
+            {'error': 'Username is required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    if user.username == new_username:
+        return Response(
+            {'message': 'Username has not changed'},
+            status=status.HTTP_200_OK
+        )
+
+    if User.objects.filter(username=new_username).exists():
+        return Response(
+            {'error': 'This username is already taken'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    user.username = new_username
+    user.save(update_fields=['username'])
+
+    return Response(
+        {'message': 'Username successfully changed',
+         'username': user.username},
+        status=status.HTTP_200_OK
+    )
