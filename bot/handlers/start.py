@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from schedule.models import TelegramProfile
+from account.models import TelegramProfile
 
 
 def register_start_handlers(bot):
