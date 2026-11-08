@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
+from datetime import timedelta
 import random
 import string
-from datetime import timedelta
-from django.contrib.auth.models import User
+import os
 
 class EmailVerificationCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -46,3 +47,31 @@ class TelegramProfile(models.Model):
 
     def __str__(self):
         return f"Профиль {self.user.username} (TG-ник: {self.telegram_username})"
+
+
+
+class Avatar(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar_owner')
+    avatar = models.ImageField(
+        upload_to='avatars/',
+        default='avatars/default.png',
+        blank=True
+    )
+
+    class Meta:
+        app_label = 'account'
+        db_table = 'users_avatar'
+        verbose_name = "User's avatar"
+        verbose_name_plural = "User's avatars"
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                old_avatar = Avatar.objects.get(pk=self.pk).avatar
+                if old_avatar and old_avatar != self.avatar:
+                    if os.path.isfile(old_avatar.path):
+                        os.remove(old_avatar.path)
+            except Avatar.DoesNotExist:
+                pass
+
+        super(Avatar, self).save(*args, **kwargs)

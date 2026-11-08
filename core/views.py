@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
 
-from account.models import TelegramProfile
+from account.models import TelegramProfile, Avatar
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -17,12 +17,17 @@ def profile(request):
     try:
         tg_profile = TelegramProfile.objects.get(user=request.user)
         telegram_username = tg_profile.telegram_username
+        avatar_object, created = Avatar.objects.get_or_create(user=request.user)
+        avatar = avatar_object.avatar
+
     except TelegramProfile.DoesNotExist:
         telegram_username = ""
+        avatar = ""
 
     context = {
         'user': request.user,
         'telegram_username': telegram_username,
+        'avatar': avatar,
     }
     return render(request, 'core/profile.html', context)
 

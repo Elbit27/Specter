@@ -166,18 +166,15 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 
 SOCIALACCOUNT_QUERY_EMAIL = True
 
-ACCOUNT_EMAIL_REQUIRED = True
 
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # Настройки подтверждения почты
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory" # "mandatory" — вход невозможен без подтверждения
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True    # Переход по ссылке сразу подтверждает почту
-LOGIN_REDIRECT_URL = '/'               # Куда кидать после входа
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

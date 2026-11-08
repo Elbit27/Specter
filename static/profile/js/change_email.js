@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             changeEmailBtn.textContent = 'Sending...';
 
             try {
-                const response = await fetch('/accounts/change-email/', {
+                const response = await fetch('/profile/change-email/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitCodeBtn.textContent = 'Checking...';
 
             try {
-                const response = await fetch('/accounts/verify-email-change/', {
+                const response = await fetch('/profile/verify-email-change/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
