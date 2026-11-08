@@ -6,7 +6,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     def send_confirmation_mail(self, request, emailconfirmation, signup):
         # Генерируем 6-значный код
         user = emailconfirmation.email_address.user
-        code = EmailVerificationCode.generate_code(user)
+        code = EmailVerificationCode.generate_code(
+            user=user,
+            email=emailconfirmation.email_address.email
+        )
 
         ctx = {
             "user": user,

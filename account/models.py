@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class EmailVerificationCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=6)
+    email = models.EmailField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -18,9 +19,16 @@ class EmailVerificationCode(models.Model):
         return self.created_at >= timezone.now() - timedelta(minutes=10)
 
     @classmethod
-    def generate_code(cls, user):
+    def generate_code(cls, user, email=None):
         code = ''.join(random.choices(string.digits, k=6))
-        cls.objects.update_or_create(user=user, defaults={'code': code, 'created_at': timezone.now()})
+
+        defaults = {'code': code, 'created_at': timezone.now()}
+
+        if email is not None:
+            defaults['email'] = email
+
+        cls.objects.update_or_create(user=user, defaults=defaults)
+
         return code
 
 

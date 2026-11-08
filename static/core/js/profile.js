@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formMessage = document.getElementById('formMessage');
 
     const cardUsername = document.getElementById('cardUsername');
-    const cardEmail = document.getElementById('cardEmail');
     const cardTg = document.getElementById('cardTg');
 
     let initialUsername = usernameInput ? usernameInput.value.trim() : '';
@@ -130,10 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (data.username && cardUsername) {
                     cardUsername.textContent = data.username;
-                }
-
-                if (data.email && cardEmail) {
-                    cardEmail.textContent = data.email;
                 }
 
                 if (cardTg) {

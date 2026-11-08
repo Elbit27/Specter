@@ -62,8 +62,13 @@
             </div>
 
             <div class="form-group">
-                <label for="id_email">Электронная почта</label>
-                <input type="email" id="id_email" name="email" value="{{ user.email }}" class="form-input" required>
+                <label>Электронная почта</label>
+                <div class="email-display">
+                    <span id="emailDisplayValue">{{ user.email }}</span>
+                    <i class="bi bi-pencil-square email-edit-icon"
+                       id="emailEditBtn"
+                       title="Изменить email"></i>
+                </div>
             </div>
 
             <div class="form-group">
@@ -82,6 +87,56 @@
 
 </div>
 
+
+<!--    CHANGE EMAIL modal-->
+<div class="email-modal-overlay" id="emailModal">
+    <div class="email-modal">
+        <div class="email-modal-header">
+            <h3>CHANGE EMAIL</h3>
+            <button type="button" class="email-modal-close" id="closeEmailModal">
+                &times;
+            </button>
+        </div>
+
+        <div class="email-modal-body">
+            <label for="newEmail">Please input the new email address</label>
+            <input
+                type="email"
+                id="newEmail"
+                placeholder="example@email.com"
+                required
+            >
+            <div id="emailError" class="email-error"></div>
+        </div>
+
+        <div class="email-modal-footer">
+            <button type="button" id="changeEmailBtn">
+                Change
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--    VERIFY EMAIL CODE modal-->
+<div class="email-modal-overlay" id="codeModal">
+    <div class="email-modal">
+        <div class="email-modal-header">
+            <h3>CHANGE EMAIL</h3>
+            <button type="button" class="email-modal-close" id="closeCodeModal">&times;</button>
+        </div>
+        <div class="email-modal-body">
+            <p class="modal-text-instruction">We have sent the 6 digit code to your new email. Please paste the code here.</p>
+            <input type="text" id="verificationCode" placeholder="6 digit code" maxlength="6" pattern="\d{6}" required>
+            <div id="codeError" class="email-error"></div>
+        </div>
+        <div class="email-modal-footer">
+            <button type="button" id="submitCodeBtn" class="btn-submit-code">Submit</button>
+        </div>
+    </div>
+</div>
+
+
 <script src="{% static 'core/js/profile.js' %}"></script>
+<script src="{% static 'core/js/change_email.js' %}"></script>
 {% endblock %}
 

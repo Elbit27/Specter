@@ -1,0 +1,6 @@
+Привет от Specter!
+
+This is the code for changing your email:
+{{ verification_code }}
+
+Удачи!
