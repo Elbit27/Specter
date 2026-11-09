@@ -67,10 +67,14 @@ class Avatar(models.Model):
     def save(self, *args, **kwargs):
         if self.pk:
             try:
-                old_avatar = Avatar.objects.get(pk=self.pk).avatar
-                if old_avatar and old_avatar != self.avatar:
-                    if os.path.isfile(old_avatar.path):
-                        os.remove(old_avatar.path)
+                old_instance = Avatar.objects.get(pk=self.pk)
+                old_avatar = old_instance.avatar
+
+                if old_avatar and old_avatar != self.avatar and old_avatar.name != self._meta.get_field(
+                        'avatar').default:
+                    if old_avatar.storage.exists(old_avatar.name):
+                        old_avatar.storage.delete(old_avatar.name)
+
             except Avatar.DoesNotExist:
                 pass
 
