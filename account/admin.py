@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TelegramProfile, Avatar
+from profiles.models import TelegramProfile, Avatar
 
 @admin.register(TelegramProfile)
 class TelegramProfileAdmin(admin.ModelAdmin):

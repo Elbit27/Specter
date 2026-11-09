@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import TelegramProfile
+from profiles.models import TelegramProfile
 
 
 class TelegramProfileSerializer(serializers.ModelSerializer):

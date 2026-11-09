@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'core',
     'goal',
     'todo',
+    'profiles',
 
     'django.contrib.sites',
 

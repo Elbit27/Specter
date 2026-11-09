@@ -9,7 +9,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.mail import send_mail
 from allauth.account.models import EmailAddress
-from account.models import EmailVerificationCode, Avatar
+from account.models import EmailVerificationCode
+from profiles.models import Avatar
 
 
 @api_view(['PATCH'])
