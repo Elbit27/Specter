@@ -1,6 +1,6 @@
-import os, django, telebot
+import os, django, threading, asyncio
+from telebot.async_telebot import AsyncTeleBot
 from django.conf import settings
-import threading
 
 
 
@@ -12,26 +12,31 @@ from bot.handlers.start import register_start_handlers
 from bot.handlers.poma import register_poma_handlers
 from bot.handlers.todo import register_todo_handlers
 
-bot = telebot.TeleBot(settings.TELEGRAM_BOT_TOKEN, use_class_middlewares=True)
+bot = AsyncTeleBot(settings.TELEGRAM_BOT_TOKEN)
 bot.setup_middleware(TelegramProfileMiddleware(bot))
 
 register_start_handlers(bot)
 register_poma_handlers(bot)
 register_todo_handlers(bot)
 
-
-
-def start_bot_polling():
-    print("Бот успешно запущен в фоновом потоке...")
+async def start_bot_polling():
+    print('Асинхронный бот успешно запущен...')
     try:
-        bot.infinity_polling(none_stop=True)
+        await bot.infinity_polling()
     except Exception as e:
-        print(f"Ошибка в работе бота: {e}")
+        print('Ошибка в работе бота')
+
+
+def run_async_loop():
+    asyncio.run(start_bot_polling())
+
 
 # Запускаем бота в фоновом потоке, чтобы он не блокировал Gunicorn и деплой Render
-bot_thread = threading.Thread(target=start_bot_polling, daemon=True)
+bot_thread = threading.Thread(target=run_async_loop, daemon=True)
 bot_thread.start()
 
 if __name__ == '__main__':
     print("Бот запущен вручную через __main__...")
     bot_thread.join()
+
+# run bot in terminal code: python3 -m bot.bot

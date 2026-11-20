@@ -123,12 +123,22 @@ Sep 29 - Oct 4
         16.2.5. change email address ./ 14:54   8
 
 
-monthly reports
+## Nov 20 - Nov ?
+17. Highlight:
+    17.1. Implement async and sync code for Specter Bot ./ 16:49 20
+    17.2. add AI into Specter Bot
 
 
-## TODO
-Implement async and sync code for Telegram Bot
 
-add AI into Specter Bot
-Finances bot's abilities
-pomodoro timer
+
+--------------------------------------------------------------------------------------------------
+
+Upgrades:
+    pomodoro timer
+    Finances bot's abilities
+    monthly reports
+    todoo auto delete every week
+    pomo timer
+
+Bugs:
+avatar expires every time      “/app/media/avatars/31016.jpg” does not exist

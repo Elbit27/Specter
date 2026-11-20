@@ -9,14 +9,14 @@ class TelegramProfileMiddleware(BaseMiddleware):
         self.bot = bot
         self.update_types = ['message']
 
-    def pre_process(self, message, data):
-        if message.text == '/start':
+    async def pre_process(self, message, data):
+        if message.text and message.text.startswith('/start'):
             return
 
-        profile = TelegramProfile.objects.filter(telegram_chat_id=message.chat.id).first()
+        profile = await TelegramProfile.objects.select_related('user').filter(telegram_chat_id=message.chat.id).afirst()
 
         if not profile:
-            self.bot.reply_to(
+            await self.bot.reply_to(
                 message,
                 "Ваш Telegram не привязан к аккаунту.\n"
                 "Сначала выполните команду /start."
@@ -25,5 +25,5 @@ class TelegramProfileMiddleware(BaseMiddleware):
 
         data['telegram_profile'] = profile
 
-    def post_process(self, message, data, exception):
+    async def post_process(self, message, data, exception):
         pass
