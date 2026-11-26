@@ -4,9 +4,6 @@ from todo.models import Todo
 from django.utils import timezone
 from datetime import timedelta
 
-
-
-
 def register_todo_handlers(bot):
 
     @bot.message_handler(commands=['todo', 'todo_t'])
@@ -78,7 +75,7 @@ def register_todo_handlers(bot):
         else:
             todo_id = message.text.replace('/delete', '', 1).strip()
 
-        todo = Todo.objects.filter(created_at__date=yesterday, id=int(todo_id)).first()
+        todo = await Todo.objects.filter(created_at__date=yesterday, id=int(todo_id)).afirst()
 
         if not todo:
             await bot.reply_to(message, "❌ Todo не найдено.")

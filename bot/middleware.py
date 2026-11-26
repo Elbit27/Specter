@@ -1,4 +1,4 @@
-from telebot.handler_backends import BaseMiddleware
+from telebot.handler_backends import BaseMiddleware, CancelUpdate
 from profiles.models import TelegramProfile
 
 
@@ -21,7 +21,7 @@ class TelegramProfileMiddleware(BaseMiddleware):
                 "Ваш Telegram не привязан к аккаунту.\n"
                 "Сначала выполните команду /start."
             )
-            return
+            return CancelUpdate()
 
         data['telegram_profile'] = profile
 

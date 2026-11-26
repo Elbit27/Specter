@@ -14,6 +14,7 @@ DEBUG = config('DEBUG')
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(",")
 
 TELEGRAM_BOT_TOKEN = config('TELEGRAM_BOT_TOKEN')
+GEMINI_API_KEY = config('GEMINI_API_KEY')
 
 
 # Application definition

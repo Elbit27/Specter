@@ -123,10 +123,16 @@ Sep 29 - Oct 4
         16.2.5. change email address ./ 14:54   8
 
 
-## Nov 20 - Nov ?
+## Nov 20 - Nov 26
 17. Highlight:
     17.1. Implement async and sync code for Specter Bot ./ 16:49 20
     17.2. add AI into Specter Bot
+        17.2.1. Get Gemini API ./   18:56 26
+        17.2.2. Add todo_service  ./   19:22 26
+
+
+## Nov 26 - ?
+18. Pomodoro timer
 
 
 
@@ -138,7 +144,6 @@ Upgrades:
     Finances bot's abilities
     monthly reports
     todoo auto delete every week
-    pomo timer
 
 Bugs:
 avatar expires every time      “/app/media/avatars/31016.jpg” does not exist
