@@ -1,18 +1,19 @@
 :root {
-    --bg-main: #0a0d12;
-    --panel-bg: #121820;
-    --accent: #6366f1;
-    --accent-hover: #4f46e5;
-    --text-primary: #f3f4f6;
-    --text-muted: #9ca3af;
-    --border: #1f2937;
-    --success: #10b981;
-    --error: #ef4444;
+    --ink-dark: #1C2128;        /* Навигация, левая карточка, основной текст */
+    --bg-paper: #F7F7F5;        /* Светлый фон страницы, форма настроек */
+    --accent-blue: #3F62FC;     /* Фирменный синий акцент */
+
+    /* Производные оттенки строго из этих 3 цветов */
+    --border-line: rgba(28, 33, 40, 0.14);
+    --border-dark: rgba(247, 247, 245, 0.12);
+    --text-muted: rgba(28, 33, 40, 0.6);
+    --text-muted-light: rgba(247, 247, 245, 0.65);
+    --blue-tint: rgba(63, 98, 252, 0.08);
 }
 
 body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
+    background-color: var(--bg-paper);
+    color: var(--ink-dark);
 }
 
 .profile-page-container {
@@ -24,19 +25,22 @@ body {
     padding: 0 20px;
 }
 
-/* Карточка в стиле Соцсети */
+/* Левая карточка профиля (контрастный графит в стиле навбара) */
 .profile-card {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
+    background-color: var(--ink-dark);
+    color: var(--bg-paper);
+    border: 1px solid var(--border-dark);
     border-radius: 16px;
     overflow: hidden;
     height: fit-content;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 32px rgba(28, 33, 40, 0.14);
 }
 
 .profile-cover {
-    height: 120px;
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    height: 110px;
+    background-color: var(--accent-blue);
+    background-image: radial-gradient(rgba(247, 247, 245, 0.2) 1px, transparent 1px);
+    background-size: 16px 16px;
     position: relative;
 }
 
@@ -51,10 +55,10 @@ body {
     height: 110px;
     margin: -55px auto 15px auto;
     border-radius: 50%;
-    border: 4px solid var(--panel-bg);
+    border: 4px solid var(--ink-dark);
     overflow: hidden;
-    background: #000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--ink-dark);
+    box-shadow: 0 6px 16px rgba(28, 33, 40, 0.35);
 }
 
 .main-avatar {
@@ -67,19 +71,20 @@ body {
     font-size: 22px;
     margin: 0 0 4px 0;
     font-weight: 700;
+    color: var(--bg-paper);
 }
 
 .profile-status {
-    color: var(--accent);
-    font-size: 13px;
-    font-weight: 600;
+    color: var(--accent-blue);
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0 0 25px 0;
+    letter-spacing: 1.2px;
+    margin: 0 0 24px 0;
 }
 
 .profile-meta {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--border-dark);
     padding-top: 20px;
     text-align: left;
     display: flex;
@@ -95,32 +100,35 @@ body {
 .meta-label {
     font-size: 11px;
     text-transform: uppercase;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
+    color: var(--text-muted-light);
+    letter-spacing: 0.6px;
     margin-bottom: 2px;
 }
 
 .meta-value {
     font-size: 15px;
-    color: var(--text-primary);
+    color: var(--bg-paper);
     word-break: break-all;
 }
 
-/* Блок настроек */
+/* Правый блок настроек */
 .settings-box {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
     border-radius: 16px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 36px 40px;
+    box-shadow: 0 10px 30px rgba(28, 33, 40, 0.05);
 }
 
 .settings-header {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .settings-header h2 {
     font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
     margin: 0 0 6px 0;
 }
 
@@ -130,9 +138,9 @@ body {
     font-size: 14px;
 }
 
-/* Стилизация формы */
+/* Загрузка аватара */
 .form-group-avatar {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -140,19 +148,21 @@ body {
 
 .avatar-edit-trigger {
     display: inline-block;
-    padding: 10px 20px;
-    border: 1px dashed var(--accent);
-    color: var(--accent);
-    border-radius: 8px;
+    padding: 11px 20px;
+    border: 1px dashed var(--accent-blue);
+    color: var(--accent-blue);
+    border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    font-weight: 500;
-    transition: all 0.2s;
-    background: rgba(99, 102, 241, 0.05);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background-color: var(--blue-tint);
 }
 
 .avatar-edit-trigger:hover {
-    background: rgba(99, 102, 241, 0.15);
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
 }
 
 .avatar-input-hidden {
@@ -164,6 +174,7 @@ body {
     color: var(--text-muted);
 }
 
+/* Поля формы */
 .form-group {
     margin-bottom: 20px;
 }
@@ -172,25 +183,26 @@ body {
     display: block;
     margin-bottom: 8px;
     font-size: 14px;
+    font-weight: 500;
     color: var(--text-muted);
 }
 
 .form-input {
     width: 100%;
     padding: 12px 16px;
-    background: #18202a;
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    border-radius: 10px;
     font-size: 15px;
-    color: white;
+    color: var(--ink-dark);
     box-sizing: border-box;
-    transition: all 0.2s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.18);
 }
 
 .tg-input-wrapper {
@@ -203,6 +215,7 @@ body {
     position: absolute;
     left: 16px;
     color: var(--text-muted);
+    font-weight: 600;
 }
 
 .tg-input {
@@ -211,84 +224,75 @@ body {
 
 .btn-save {
     width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: white;
+    padding: 13px;
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
     margin-top: 10px;
 }
 
 .btn-save:hover {
-    background: var(--accent-hover);
+    box-shadow: 0 8px 20px rgba(63, 98, 252, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-save:active {
+    transform: translateY(0);
 }
 
 .form-message {
-    margin-top: 20px;
+    margin-top: 18px;
     text-align: center;
     font-size: 14px;
+    font-weight: 500;
     min-height: 20px;
 }
 
-.form-message.success { color: var(--success); }
-.form-message.error { color: var(--error); }
+.form-message.success {
+    color: var(--accent-blue);
+}
 
+.form-message.error {
+    color: var(--ink-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-blue);
+}
+
+/* Отображение Email */
 .email-display {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
+    padding: 12px 16px;
+    background-color: rgba(28, 33, 40, 0.04);
+    border: 1px solid var(--border-line);
+    border-radius: 10px;
+    color: var(--ink-dark);
+    font-weight: 500;
 }
 
 .email-edit-icon {
     font-size: 18px;
-    color: #999;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: 0.2s;
+    transition: color 0.2s ease;
 }
 
 .email-edit-icon:hover {
-    color: #2ec4b6;
+    color: var(--accent-blue);
 }
 
-
-.email-display {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-}
-
-.email-edit-icon {
-    font-size: 18px;
-    color: #999;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.email-edit-icon:hover {
-    color: #2ec4b6;
-}
-
-/* Modal */
-
+/* Модальное окно смены Email */
 .email-modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background-color: rgba(28, 33, 40, 0.72);
     z-index: 9999;
     align-items: center;
     justify-content: center;
@@ -302,10 +306,12 @@ body {
 .email-modal {
     width: 100%;
     max-width: 410px;
-    background: #fff;
-    border-radius: 9px;
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
     overflow: hidden;
-    color: #333;
+    color: var(--ink-dark);
+    box-shadow: 0 24px 48px rgba(28, 33, 40, 0.25);
     animation: emailModalAppear 0.2s ease;
 }
 
@@ -321,18 +327,19 @@ body {
 }
 
 .email-modal-header {
-    height: 55px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border-bottom: 1px solid #eee;
+    background-color: var(--ink-dark);
+    border-bottom: 1px solid var(--border-dark);
 }
 
 .email-modal-header h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #aaa;
+    color: var(--bg-paper);
     margin: 0;
 }
 
@@ -343,87 +350,97 @@ body {
     transform: translateY(-50%);
     border: none;
     background: none;
-    font-size: 28px;
-    color: #aaa;
+    font-size: 26px;
+    color: var(--text-muted-light);
     cursor: pointer;
+    transition: color 0.2s ease;
 }
 
 .email-modal-close:hover {
-    color: #333;
+    color: var(--bg-paper);
 }
 
 .email-modal-body {
-    padding: 24px 22px 27px;
+    padding: 24px 22px 26px;
 }
 
 .email-modal-body label {
     display: block;
-    font-size: 16px;
-    margin-bottom: 19px;
-    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--text-muted);
 }
 
 .email-modal-body input {
     width: 100%;
     box-sizing: border-box;
-    height: 50px;
-    padding: 0 18px;
-    border: none;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--border-line);
     outline: none;
-    border-radius: 7px;
-    background: #eee;
-    font-size: 16px;
-    color: #333;
+    border-radius: 10px;
+    background-color: var(--bg-paper);
+    font-size: 15px;
+    color: var(--ink-dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .email-modal-body input:focus {
-    box-shadow: 0 0 0 2px #2ec4b6;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.18);
 }
 
 .email-modal-body input::placeholder {
-    color: #bbb;
+    color: var(--text-muted);
 }
 
 .email-modal-footer {
     display: flex;
     justify-content: flex-end;
     padding: 14px 22px;
-    background: #f5f5f5;
+    background-color: rgba(28, 33, 40, 0.04);
+    border-top: 1px solid var(--border-line);
 }
 
 .email-modal-footer button {
-    padding: 11px 21px;
+    padding: 10px 22px;
     border: none;
     border-radius: 10px;
-    background: #888;
-    color: #fff;
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.email-modal-footer button:hover {
-    background: #666;
+.email-modal-footer button:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(63, 98, 252, 0.35);
+    transform: translateY(-1px);
 }
 
 .email-modal-footer button:disabled {
-    opacity: 0.6;
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
 .email-error {
-    color: #e74c3c;
+    color: var(--accent-blue);
     font-size: 13px;
+    font-weight: 500;
     margin-top: 10px;
 }
-
-
-
 
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
     .profile-page-container {
         grid-template-columns: 1fr;
+        margin: 24px auto;
+        gap: 20px;
+    }
+
+    .settings-box {
+        padding: 24px 20px;
     }
 }

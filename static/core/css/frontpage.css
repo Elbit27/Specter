@@ -1,275 +1,213 @@
-/* --- Глобальные настройки --- */
-.text-gradient {
-    background: linear-gradient(90deg, #9B111E, #ff4d4d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+:root {
+    --bg-paper: #F7F7F5;
+    --ink-dark: #1C2128;
+    --accent-blue: #3F62FC;
 }
 
-.min-vh-75 { min-height: 75vh; }
-
-/* --- Hero Section --- */
 .hero-wrapper {
-    position: relative;
-    background-color: var(--bg-graphite);
+    background-color: var(--bg-paper);
+    color: var(--ink-dark);
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+    /* Едва заметная инженерная сетка на фоне */
+    background-image: 
+        radial-gradient(rgba(28, 33, 40, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
 }
 
-.glow-element {
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(155, 17, 30, 0.15) 0%, transparent 70%);
-    z-index: 0;
+.min-vh-85 {
+    min-height: 80vh;
 }
 
-.hero-badge {
+/* Бейдж сверху */
+.specter-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 24px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(28, 33, 40, 0.12);
+    background-color: var(--bg-paper);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-dark);
 }
 
-.pulsating-dot {
+.badge-dot {
     width: 8px;
     height: 8px;
-    background-color: var(--accent-red);
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.2);
 }
 
-/* --- Кнопки --- */
-
-/* --- Кнопки (Исправлено) --- */
-.btn-specter {
-    padding: 14px 28px;
-    border-radius: 12px;
+/* Типографика */
+.hero-title {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     font-weight: 700;
-    text-decoration: none;
-    transition: 0.3s;
-    display: inline-block;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--ink-dark);
 }
 
-.primary-glow {
-    background-color: var(--accent-red);
-    color: white !important;
-    box-shadow: 0 10px 20px rgba(141, 169, 196, 0.3);
+.accent-text {
+    color: var(--accent-blue);
 }
 
-.primary-glow:hover {
-    background-color: #b31624;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(155, 17, 30, 0.4);
-    color: white !important;
+.hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(28, 33, 40, 0.68);
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
 }
 
-.secondary-outline {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white !important;
-    background: transparent;
-}
-
-.secondary-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--accent-red);
-    color: var(--accent-red) !important;
-}
-
-.white-btn {
-    background: white;
-    color: var(--accent-red) !important;
-}
-
-.white-btn:hover {
-    background: #f8f9fa;
-    transform: translateY(-2px);
-}
-
-/* --- Декоративные карточки в Hero --- */
-.hero-card-stack {
-    position: relative;
-    height: 400px;
-}
-
-.glass-card {
-    position: absolute;
-    background: rgba(45, 50, 59, 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-.card-1 { top: 20%; right: 10%; z-index: 2; width: 250px; }
-.card-2 { top: 45%; right: 25%; z-index: 1; width: 220px; }
-
-.mini-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 30px;
-}
-
-.mini-chart .bar {
-    width: 6px;
-    background: var(--accent-red);
-    border-radius: 2px;
-}
-
-/* --- Блок статистики --- */
-.stats-bar {
-    padding: 40px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(28, 33, 40, 0.5);
-}
-
-/* --- Features --- */
-.feature-box {
-    background: var(--nav-graphite);
-    padding: 40px;
+/* КАРТОЧКА ТАЙМЕРА */
+.pomodoro-widget {
+    background-color: var(--ink-dark);
+    color: var(--bg-paper);
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 2rem 2.25rem;
+    max-width: 430px;
+    box-shadow: 0 24px 48px -12px rgba(28, 33, 40, 0.28);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Вкладки режимов */
+.pomo-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background-color: rgba(247, 247, 245, 0.06);
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 1.75rem;
+}
+
+.pomo-tab {
+    background: transparent;
+    border: none;
+    color: rgba(247, 247, 245, 0.6);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pomo-tab:hover {
+    color: var(--bg-paper);
+}
+
+.pomo-tab.active {
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
+    font-weight: 600;
+}
+
+/* Линия прогресса */
+.pomo-progress-track {
+    width: 100%;
+    height: 3px;
+    background-color: rgba(247, 247, 245, 0.1);
+    border-radius: 3px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+}
+
+.pomo-progress-fill {
+    width: 100%;
     height: 100%;
-    transition: 0.3s;
+    background-color: var(--accent-blue);
+    transition: width 0.5s linear;
 }
 
-.feature-box.active {
-    border-color: var(--accent-red);
-    background: linear-gradient(145deg, var(--nav-graphite), #23272e);
+/* Цифры таймера */
+.pomo-display {
+    font-size: clamp(4rem, 8vw, 5.25rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--bg-paper);
+    margin-bottom: 2rem;
+    user-select: none;
 }
 
-.icon-circle {
-    width: 60px;
-    height: 60px;
-    background: rgba(155, 17, 30, 0.1);
-    color: var(--accent-red);
-    border-radius: 16px;
+/* Кнопки таймера */
+.pomo-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.pomo-btn-start {
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 44px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.pomo-btn-start:hover {
+    box-shadow: 0 8px 20px rgba(63, 98, 252, 0.45);
+    transform: translateY(-1px);
+}
+
+.pomo-btn-start:active {
+    transform: translateY(0);
+}
+
+.pomo-btn-start.is-running {
+    background-color: var(--bg-paper);
+    color: var(--ink-dark);
+    box-shadow: none;
+}
+
+.pomo-btn-reset {
+    background-color: rgba(247, 247, 245, 0.08);
+    color: var(--bg-paper);
+    border: none;
+    border-radius: 12px;
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    margin-bottom: 24px;
 }
 
-/* --- CTA Banner --- */
-.cta-inner {
-    background: linear-gradient(135deg, #9B111E 0%, #630a12 100%);
-    padding: 80px 40px;
-    border-radius: 40px;
-    color: white;
+.pomo-btn-reset:hover {
+    background-color: rgba(247, 247, 245, 0.16);
 }
 
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 17, 30, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(155, 17, 30, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 17, 30, 0); }
+/* Кнопка перехода в расписание */
+.btn-specter-primary {
+    display: inline-block;
+    background-color: var(--ink-dark);
+    color: var(--bg-paper);
+    text-decoration: none;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-
-
-@media (max-width: 991.98px) {
-    .min-vh-75 {
-        min-height: auto;
-        padding: 50px 0;
-    }
-
-    .hero-card-stack {
-        height: 320px;
-        margin-top: 40px;
-    }
-
-    .card-1 {
-        right: 5%;
-        top: 15%;
-    }
-
-    .card-2 {
-        right: 15%;
-        top: 45%;
-    }
-
-    .stats-bar {
-        padding: 30px 0;
-    }
-
-    .feature-box {
-        padding: 30px;
-    }
-
-    .cta-inner {
-        padding: 50px 30px;
-        border-radius: 24px;
-    }
-}
-
-@media (max-width: 767.98px) {
-    .hero-badge {
-        font-size: 13px;
-        padding: 6px 12px;
-        margin-bottom: 16px;
-    }
-
-    .btn-specter {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 12px;
-        padding: 12px 20px;
-    }
-
-    .hero-card-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        height: auto;
-        margin-top: 30px;
-    }
-
-    .glass-card {
-        position: static;
-        width: 100% !important;
-    }
-
-    .stats-bar .row > div {
-        margin-bottom: 20px;
-    }
-
-    .stats-bar .row > div:last-child {
-        margin-bottom: 0;
-    }
-
-    .feature-box {
-        padding: 24px;
-    }
-
-    .icon-circle {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        margin-bottom: 16px;
-    }
-
-    .cta-inner {
-        padding: 40px 20px;
-        border-radius: 16px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 575.98px) {
-    .glow-element {
-        width: 200px;
-        height: 200px;
-    }
+.btn-specter-primary:hover {
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
+    transform: translateY(-1px);
 }

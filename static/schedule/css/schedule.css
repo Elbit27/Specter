@@ -1,84 +1,130 @@
 :root {
-    --bg-dark: #0d1117;
-    --table-bg: #161b22;
-    --border-color: #30363d;
-    --text-main: #c9d1d9;
-    --text-muted: #8b949e;
-    --accent-red: #9B111E;
-    --input-bg: #0d1117;
+    --ink-dark: #1C2128;        /* Основной текст, шапка таблицы, кнопки */
+    --bg-paper: #F7F7F5;        /* Светлый фон страницы и ячеек */
+    --accent-blue: #3F62FC;     /* Фирменный синий акцент */
+
+    /* Производные оттенки строго из этих 3 цветов */
+    --border-line: rgba(28, 33, 40, 0.14);
+    --text-muted: rgba(28, 33, 40, 0.6);
+    --blue-tint: rgba(63, 98, 252, 0.08);
+    --dark-tint: rgba(28, 33, 40, 0.04);
+}
+
+/* Заголовок страницы */
+h1 {
+    color: var(--ink-dark);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+/* Кнопка добавления предмета */
+.add-subject-btn {
+    display: inline-block;
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.add-subject-btn:hover {
+    color: var(--bg-paper);
+    box-shadow: 0 6px 18px rgba(63, 98, 252, 0.35);
+    transform: translateY(-1px);
 }
 
 /* Общий контейнер */
 .schedule-container {
-    background-color: var(--table-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 10px;
-    margin-top: 20px;
-    overflow-x: auto; /* Для мобильных устройств */
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    padding: 0;
+    margin-top: 10px;
+    overflow: hidden;
+    overflow-x: auto;
+    box-shadow: 0 10px 30px rgba(28, 33, 40, 0.06);
 }
 
 /* Стили таблицы */
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
-    color: var(--text-main);
+    color: var(--ink-dark);
     font-size: 14px;
 }
 
-.schedule-table th, 
+.schedule-table th,
 .schedule-table td {
-    padding: 12px 8px;
-    border: 1px solid var(--border-color);
+    padding: 12px 10px;
+    border: 1px solid var(--border-line);
     text-align: center;
 }
 
+/* Тёмная контрастная шапка таблицы в стиле навбара */
 .schedule-table thead th {
-    background-color: rgba(48, 54, 61, 0.3);
-    color: var(--text-muted);
+    background-color: var(--ink-dark);
+    color: var(--bg-paper);
+    border-color: rgba(247, 247, 245, 0.12);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 12px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
 }
 
 /* Колонка с названием предмета */
 .subject-col {
     text-align: left !important;
-    font-weight: 500;
-    min-width: 150px;
-    color: var(--text-main);
+    font-weight: 600;
+    min-width: 160px;
+    color: var(--ink-dark);
+    padding-left: 16px !important;
+}
+
+thead th.subject-col {
+    color: var(--bg-paper);
 }
 
 /* Стили инпутов */
 .day-input {
-    width: 50px;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
+    width: 52px;
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    color: var(--ink-dark);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
     text-align: center;
     padding: 6px;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: all 0.2s ease;
     outline: none;
 }
 
 /* Состояние активного дня (сегодня) */
 .day-input.active {
-    border-color: var(--accent-red);
-    box-shadow: 0 0 5px rgba(155, 17, 30, 0.3);
+    border: 2px solid var(--accent-blue);
+    background-color: var(--blue-tint);
+    color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.15);
 }
 
 .day-input:focus {
-    border-color: #58a6ff;
-    background: #1c2128;
+    border-color: var(--accent-blue);
+    background-color: var(--bg-paper);
+    color: var(--ink-dark);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.25);
 }
 
 /* Отключенные инпуты (прошлые/будущие дни) */
 .day-input.disabled {
-    opacity: 0.5;
+    opacity: 0.55;
     background: transparent;
     border-color: transparent;
+    color: var(--text-muted);
     cursor: not-allowed;
 }
 
@@ -91,45 +137,31 @@
 
 /* Итоговая строка */
 .total-row {
-    background-color: rgba(48, 54, 61, 0.2);
+    background-color: var(--dark-tint);
 }
 
 .total-row td {
-    color: var(--accent-red);
-    font-weight: bold;
+    color: var(--accent-blue);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
 }
 
-/* Кнопка добавления предмета */
-.add-subject-btn {
-    display: inline-block;
-    background-color: #238636; /* Зеленый в стиле GitHub */
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    transition: background 0.2s;
+.total-row .subject-col {
+    color: var(--ink-dark);
 }
 
-.add-subject-btn:hover {
-    background-color: #2ea043;
-}
-
-/* Заголовок страницы */
-h1 {
-    color: var(--text-main);
-    margin-bottom: 20px;
-}
-
+/* ==========================================================================
+   АДАПТИВНОСТЬ
+   ========================================================================== */
 
 @media (max-width: 991.98px) {
     .schedule-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         margin: 0 -15px 20px -15px;
-        padding: 0 15px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
     }
 
     .schedule-table {
@@ -175,16 +207,19 @@ h1 {
         min-width: 120px;
         position: sticky;
         left: 0;
-        background: var(--card-graphite, #2d323b);
+        background: var(--bg-paper);
         z-index: 2;
+        box-shadow: 2px 0 6px rgba(28, 33, 40, 0.08);
     }
 
     thead th.subject-col {
-        background: var(--nav-graphite, #1c2128);
+        background: var(--ink-dark);
+        color: var(--bg-paper);
         z-index: 3;
     }
 
     .total-row .subject-col {
-        background: var(--nav-graphite, #1c2128);
+        background: var(--bg-paper);
+        color: var(--ink-dark);
     }
 }

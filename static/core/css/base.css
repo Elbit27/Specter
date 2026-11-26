@@ -1,71 +1,89 @@
 :root {
-    --white: #ffffff;
-    --bg-graphite: #23272e;        /* Основной фон страниц */
-    --nav-graphite: #1c2128;       /* Фон навигации */
-    --card-graphite: #2d323b;      /* Фон карточек и панелей */
-    --accent-red: #9B111E;         /* Твой фирменный красный */
-    --accent-red-hover: #b31624;
-    --text-muted: #adbac7;         /* Приглушенный текст */
-    --border-color: rgba(255, 255, 255, 0.08);
+    --ink-dark: #1C2128;        /* Навигация, текст, темные карточки */
+    --bg-paper: #F7F7F5;        /* Основной светлый фон страниц */
+    --accent-blue: #3F62FC;     /* Фирменный синий акцент */
+
+    /* Производные оттенки строго из этих 3 цветов */
+    --border-light: rgba(28, 33, 40, 0.1);
+    --border-dark: rgba(247, 247, 245, 0.12);
+    --text-muted-dark: rgba(28, 33, 40, 0.65);
+    --text-muted-light: rgba(247, 247, 245, 0.7);
 }
 
 body {
-    background-color: var(--bg-graphite);
-    color: var(--white);
+    background-color: var(--bg-paper);
+    color: var(--ink-dark);
     font-family: 'Inter', sans-serif;
     margin: 0;
 }
 
 /* Navbar */
 .navbar-custom {
-    background-color: var(--nav-graphite) !important;
-    border-bottom: 1px solid var(--border-color);
+    background-color: var(--ink-dark) !important;
+    border-bottom: 1px solid var(--border-dark);
     padding: 12px 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(28, 33, 40, 0.15);
 }
 
 .navbar-brand {
     font-weight: 800;
     letter-spacing: -0.5px;
-    color: var(--white) !important;
+    color: var(--bg-paper) !important;
 }
 
 .brand-accent {
-    color: var(--accent-red);
+    color: var(--accent-blue);
 }
 
 /* Уведомления */
 .notification-bell-icon {
     font-size: 1.3rem;
-    color: var(--text-muted);
+    color: var(--text-muted-light);
+    transition: color 0.2s ease;
+}
+
+.notification-bell-icon:hover {
+    color: var(--bg-paper);
 }
 
 .badge-custom {
     position: absolute;
     top: 5px;
     right: 5px;
-    background-color: var(--accent-red) !important;
+    background-color: var(--accent-blue) !important;
+    color: var(--bg-paper) !important;
     font-size: 0.65rem;
     padding: 3px 6px;
-    border: 2px solid var(--nav-graphite);
+    border: 2px solid var(--ink-dark);
 }
 
 .dropdown-menu {
-    background-color: var(--card-graphite) !important;
-    border: 1px solid var(--border-color) !important;
+    background-color: var(--ink-dark) !important;
+    border: 1px solid var(--border-dark) !important;
+    color: var(--bg-paper);
+    box-shadow: 0 12px 32px rgba(28, 33, 40, 0.25);
 }
 
 .dropdown-menu .fw-bold {
-    color: var(--white);
-    border-bottom-color: var(--border-color) !important;
+    color: var(--bg-paper);
+    border-bottom-color: var(--border-dark) !important;
+}
+
+.dropdown-item {
+    color: var(--text-muted-light) !important;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(63, 98, 252, 0.18) !important;
+    color: var(--bg-paper) !important;
 }
 
 /* UI Elements */
 .avatar-circle {
     width: 35px;
     height: 35px;
-    background-color: var(--accent-red); /* Аватар по умолчанию красный */
-    color: white;
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,84 +93,92 @@ body {
 }
 
 .btn-auth {
-    background-color: var(--accent-red) !important;
+    background-color: var(--accent-blue) !important;
     border: none !important;
-    color: white !important;
+    color: var(--bg-paper) !important;
     font-weight: 600;
     padding: 8px 25px;
-    transition: 0.3s;
+    border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .btn-auth:hover {
-    background-color: var(--accent-red-hover) !important;
+    box-shadow: 0 6px 18px rgba(63, 98, 252, 0.4);
+    transform: translateY(-1px);
 }
 
 /* Боковое меню (User Panel) */
 .user-side-panel {
-    background-color: var(--card-graphite) !important;
+    background-color: var(--ink-dark) !important;
     padding: 15px !important;
+    border-radius: 16px;
+    color: var(--bg-paper);
 }
 
 .side-item {
     display: flex;
     align-items: center;
     padding: 12px 18px;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
     margin-bottom: 8px;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 .card-profile {
-    background-color: var(--white);
-    color: var(--nav-graphite) !important;
+    background-color: var(--bg-paper);
+    color: var(--ink-dark) !important;
 }
 
 .card-action {
-    background-color: var(--input-bg, #1c2128);
-    color: var(--white) !important;
-    border: 1px solid var(--border-color);
+    background-color: rgba(247, 247, 245, 0.05);
+    color: var(--bg-paper) !important;
+    border: 1px solid var(--border-dark);
 }
 
 .card-action:hover {
-    background-color: var(--accent-red);
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
 }
 
 .card-action i {
     margin-right: 12px;
-    color: var(--accent-red);
+    color: var(--accent-blue);
+    transition: color 0.2s ease;
 }
 
 .card-action:hover i {
-    color: white;
+    color: var(--bg-paper);
 }
 
 .card-logout {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #ff4d4d !important;
+    background-color: rgba(247, 247, 245, 0.06);
+    color: var(--text-muted-light) !important;
+    border: 1px solid var(--border-dark);
     margin-top: 20px;
 }
 
 .card-logout:hover {
-    background-color: #ff4d4d;
-    color: white !important;
+    background-color: var(--bg-paper);
+    color: var(--ink-dark) !important;
 }
 
 /* Особая кнопка для игры */
 .highlight-game {
-    border: 1px solid var(--accent-red);
-    box-shadow: 0 0 10px rgba(155, 17, 30, 0.2);
+    border: 1px solid var(--accent-blue);
+    box-shadow: 0 0 12px rgba(63, 98, 252, 0.25);
 }
 
 /* Offcanvas (Мобильное меню) */
 #userMenuOffcanvas {
-    background-color: var(--nav-graphite) !important;
-    border-left: 1px solid var(--border-color) !important;
+    background-color: var(--ink-dark) !important;
+    color: var(--bg-paper);
+    border-left: 1px solid var(--border-dark) !important;
 }
 
 .offcanvas-header {
-    border-bottom: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-dark) !important;
 }
 
 /* Скроллбар для уведомлений */
@@ -160,10 +186,10 @@ body {
     width: 6px;
 }
 #notification-items::-webkit-scrollbar-track {
-    background: var(--nav-graphite);
+    background: var(--ink-dark);
 }
 #notification-items::-webkit-scrollbar-thumb {
-    background: var(--border-color);
+    background: var(--border-dark);
     border-radius: 10px;
 }
 

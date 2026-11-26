@@ -133,7 +133,10 @@ Sep 29 - Oct 4
 
 ## Nov 26 - ?
 18. Pomodoro timer
-
+    18.1. Add timer to frontpage ./  22:21   26
+    18.2. modal window after pomodoro ending
+    18.3. redirecting to pomodoro timer after breaks
+    18.4. Add some details to frontpage
 
 
 
@@ -147,3 +150,4 @@ Upgrades:
 
 Bugs:
 avatar expires every time      “/app/media/avatars/31016.jpg” does not exist
+send and resend verifier code in local

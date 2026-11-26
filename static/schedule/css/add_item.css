@@ -1,31 +1,32 @@
 :root {
-    --bg-dark: #0d1117;
-    --card-bg: #161b22;
-    --border-color: #30363d;
-    --text-main: #c9d1d9;
-    --text-muted: #8b949e;
-    --accent-red: #9B111E;
-    --accent-hover: #c41424;
-    --error-color: #f85149;
+    --ink-dark: #1C2128;        /* Основной текст и рамки */
+    --bg-paper: #F7F7F5;        /* Светлый фон страницы и карточки */
+    --accent-blue: #3F62FC;     /* Фирменный синий акцент */
+
+    /* Производные оттенки строго из этих 3 цветов */
+    --border-line: rgba(28, 33, 40, 0.14);
+    --text-muted: rgba(28, 33, 40, 0.65);
+    --blue-tint: rgba(63, 98, 252, 0.08);
 }
 
 /* Центрирование формы на странице */
 .task-form {
     max-width: 450px;
     margin: 60px auto;
-    padding: 30px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(28, 33, 40, 0.07);
 }
 
 .task-form h2 {
-    color: var(--text-main);
+    color: var(--ink-dark);
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 /* Стилизация меток и полей ввода */
@@ -34,66 +35,76 @@
     margin-bottom: 8px;
     color: var(--text-muted);
     font-size: 14px;
+    font-weight: 500;
 }
 
-.task-form input[type="text"] {
+.task-form input[type="text"],
+.task-form input[type="number"],
+.task-form textarea,
+.task-form select {
     width: 100%;
-    padding: 12px;
+    padding: 12px 14px;
     margin-bottom: 20px;
-    background-color: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-main);
+    background-color: var(--bg-paper);
+    border: 1px solid var(--border-line);
+    border-radius: 10px;
+    color: var(--ink-dark);
     font-size: 16px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
-.task-form input[type="text"]:focus {
+.task-form input[type="text"]:focus,
+.task-form input[type="number"]:focus,
+.task-form textarea:focus,
+.task-form select:focus {
     outline: none;
-    border-color: var(--accent-red);
-    box-shadow: 0 0 0 3px rgba(155, 17, 30, 0.15);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(63, 98, 252, 0.18);
 }
 
 /* Кнопка отправки */
 .task-form button {
     width: 100%;
-    padding: 12px;
-    background-color: var(--accent-red);
-    color: white;
+    padding: 13px;
+    background-color: var(--accent-blue);
+    color: var(--bg-paper);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .task-form button:hover {
-    background-color: var(--accent-hover);
+    box-shadow: 0 8px 20px rgba(63, 98, 252, 0.35);
+    transform: translateY(-1px);
 }
 
 .task-form button:active {
-    transform: scale(0.98);
+    transform: translateY(0);
 }
 
-/* Блок с ошибками */
+/* Блок с ошибками (строго в 3 цветах) */
 .errors {
-    background-color: rgba(248, 81, 73, 0.1);
-    border: 1px solid var(--error-color);
-    border-radius: 8px;
-    padding: 12px;
+    background-color: var(--blue-tint);
+    border: 1px solid var(--accent-blue);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 10px;
+    padding: 12px 14px;
     margin-bottom: 20px;
 }
 
 .errors ul {
     margin: 0;
-    padding-left: 20px;
+    padding-left: 18px;
 }
 
 .errors li {
-    color: var(--error-color);
+    color: var(--ink-dark);
     font-size: 14px;
+    font-weight: 500;
 }
 
 /* Адаптивность для мобилок */
@@ -101,7 +112,7 @@
     .task-form {
         margin: 20px 15px;
         padding: 24px 16px;
-        border-radius: 10px;
+        border-radius: 12px;
     }
 
     .task-form h2 {
@@ -110,14 +121,17 @@
     }
 
     .task-form input[type="text"],
+    .task-form input[type="number"],
+    .task-form textarea,
+    .task-form select,
     .task-form button {
         padding: 14px 12px;
         font-size: 16px;
-        border-radius: 8px;
+        border-radius: 10px;
     }
 
     .errors {
-        padding: 10px;
+        padding: 10px 12px;
         margin-bottom: 16px;
     }
 
